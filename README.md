@@ -1,5 +1,5 @@
 # Chart-parser
-<b>macOS usage</b>>
+<b>macOS usage</b>
 <b>Note: Copy malloc header to local</b>
 
 	$ cp /usr/include/malloc/malloc.h /usr/local/include/malloc.h
