@@ -1,6 +1,5 @@
 # Chart-parser
-Chart parser in C | Supported macOS, Supported Thai Language
-# Chart-parser
+<b>macOS usage</b>>
 <b>Note: Copy malloc header to local</b>
 
 	$ cp /usr/include/malloc/malloc.h /usr/local/include/malloc.h
@@ -25,9 +24,11 @@ Explanation:
    % make chart          # for chart     version
    % make chartill       # for chartill  version
    % make chartpure      # for chartpure version
+   % make chart-th		 # for chart thai supported version
+   % make chartill-th	 # for chartill thai supported version
 
- * There are three versions of chart parsing algorithms in this
-   directory: chart, chartill, chartpure
+ * There are 3+2 versions of chart parsing algorithms in this
+   directory: chart, chartill, chartpure, chart-th, chartill-th
 
    chart version:
 	This program parses a sentence under a grammar given in
@@ -44,6 +45,14 @@ Explanation:
         convert table anymore. It seems to be the most general version
         which you can use for parsing a sentence under a grammar.
 
+   chart-th version:
+	This program parses a sentence under a grammar given in
+        'gram/gram.th'.
+        The tables are denoted in 'src/trancat-th.c' and 'src/trancat-th.h'.
+
+   chartill-th version:
+    This program is an extension of chart-th version to parse
+
  * How to change a grammar and What is the form of input sentences ?
 
    == Chart and Chartill version ==
@@ -51,13 +60,22 @@ Explanation:
    [Grammar]
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram' with the one you want for chart and chartill
-     version. 
+     version.
+
+   [Thai Grammar]
+     You can change a grammar for parsing by replacing a grammar file
+     located at 'gram/gram.th' with the one you want for chart and chartill
+     version OR Makefile.
+
 
    [Input sentences]
      In chart and chartill version, the sentence has to be in the form
-     of 'word/category'. The following is an example:
+     of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
+     The following is an example:
 
-"the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN"
+"the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
+"ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
+
 
    == Chartpure version ==
 
@@ -75,11 +93,18 @@ Explanation:
 
    Ex.)
 
-   % chart < demo_example/ex_sentences
+   % ./chart [outputfile DIR]  < demo_example/ex_sentences
 
-   % chartill 1 1 1 1 < demo_example/ex_sentences
+   % ./chartill 1 1 1 1 < demo_example/ex_sentences
 
-   % chartpure 1 < demo_example/ex_sentences1
+   % ./chartpure 1 < demo_example/ex_sentences1
+
+   % ./chart-th <outputfile DIR> < demo_example/ex_sentences
+
+   % ./chartill 1 1 1 1 < demo_example/ex_sentences
+
+   Note:  [outputfile DIR] in chart could be blank for displaying in STDOUT
+   		  ./chartill [outputfile DIR] [no.err] [wlimit] [info]
 
 [Reference]
 
