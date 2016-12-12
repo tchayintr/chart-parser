@@ -1,0 +1,23 @@
+use lowerprl to change gram.bup to lowercase (gram.buplower).
+use dcgexdcg(prolog) to compile gram.buplower to gram.dcg .
+use gcompiler2 to compile it to 'c' header.
+
+------------
+14 OCT 2016
+Grammar compiler
+	$ gcc -o <outfilename> gcompile.c
+	$ ./<outfilename> < <grammarfilepath> > gram.h
+	$ mv gram.h ../src/gram.h
+
+Grammar syntax
+	Ex. (always need 'sentence' according to *.c)
+		sentence-->np,vp.
+		np-->n.
+		vp-->vp,n.
+		vp-->v.
+		..
+		..
+
+Grammar config.
+	See Makefile 
+

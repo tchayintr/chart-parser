@@ -1,0 +1,26 @@
+#!/usr/local/bin/perl
+
+#$/ = "";		# paragraph mode
+#$* 1;			# multi-line mode
+
+# seperate line to words
+# and then delete duplication
+
+while (<>) {
+	s/,\n/\n/g;
+	s/^\( //g;
+	s/ \)$//g;
+	s/,! //g;
+	s/ //g;
+	s/\(([^\),]*),([^\)]*)\)/\($1==$2\)/g;
+	s/\(([^\),]*),([^\)]*)\)/\($1==$2\)/g;
+	s/\(([^\),]*),([^\)]*)\)/\($1==$2\)/g;
+	s/\(([^\),]*),([^\)]*)\)/\($1==$2\)/g;
+	s/,/\n/g;
+	s/\s*;\s*/\n/g;
+	s/==/,/g;
+#	s/\([^\)]*\)//g;
+	print;
+}
+
+

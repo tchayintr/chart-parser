@@ -1,0 +1,7 @@
+s  -> np,vp.  1)
+s  -> s,pp.   2)
+np -> n.      3)
+np -> det,n.  4)
+np -> np,pp.  5)
+pp -> p,np.   6)
+vp -> v,np.   7)

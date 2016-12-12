@@ -1,0 +1,2535 @@
+/********************************************************/
+/*		Grammar Rules				*/
+/*		Oshin Original				*/
+/*							*/
+/*		Bup version				*/
+/*		No semantics				*/
+/*		No tree information			*/
+/*							*/
+/* NOTE :						*/
+/* this grammar has category "numbr","not",		*/
+/* so translate with -o option of bt. or rename these	*/
+/* categories. this grammar has also the rule which	*/
+/* head of body is TERMINAL. that is vp3 --> [never]..	*/
+/* this may cause error in translation with bt.so this	*/
+/* rule is commented out now.				*/
+/* this grammar's start category was "bun", but this is	*/
+/* commented out now. so start categoy is "sentence"	*/
+/* now.							*/
+/********************************************************/
+
+adjcomp( ENOUGH_A,ADJCOMP_S) -->
+   enough(ENOUGH_A,ENOUGH_S).
+
+adjcomp(INF_A,ADJCOMP_S) -->
+   infinitive(INF_A,INF_S).
+
+adjcomp(NP_A,ADJCOMP_S) -->
+   p(P_A,P_S),
+   {p_for_check(P_A)},
+   np(NP_A,NP_S).
+
+adjcomp(NP_A,ADJCOMP_S) -->
+   of(OF_A,OF_S),
+   np(NP_A,NP_S).
+
+adjcomp(ADJCOMP_A,ADJCOMP_S) -->
+   enough(ENOUGH_A,ENOUGH_S),
+   infinitive(INF_A,INF_S).
+  
+adjcomp(ADJCOMP_A,ADJCOMP_S) -->
+   enough(ENOUGH_A,ENOUGH_S),
+   p(P_A,P_S),
+   {p_for_check(P_A)},
+   np(NP_A,NP_S).
+
+adjcomp(ADJCOMP_A,ADJCOMP_S) -->
+   enough(ENOUGH_A,ENOUGH_S),
+   p(P_A,P_S),
+   {p_for_check(P_A)},
+   np(NP_A,NP_S),
+   infinitive(INF_A,INF_S).
+
+adjcomp(ADJCOMP_A,ADJCOMP_S) -->
+   p(P_A,P_S),
+   {p_for_check(P_A)},
+   np(NP_A,NP_S),
+   infinitive(INF_A,INF_S).
+
+adjcomp(ADJCOMP_A,ADJCOMP_S) -->
+   relpro(RELPRO_A,RELPRO_S),
+   { relpro_that(RELPRO_A) },
+   sdec(SDEC_A,SDEC_S).
+
+adjp(ADJ_A,ADJP_S) -->
+   adj(ADJ_A,ADJ_S).
+
+adjp(ADJ_A,ADJP_S) -->
+   adj(ADJ_A,ADJ_S),
+   adjcomp(ADJCOMP_A,ADJCOMP_S).
+
+adjp(ADJ_A,ADJP_S) -->
+   qdet(QDET_A,QDET_S),
+   adj(ADJ_A,ADJ_S),
+   ( [] ;
+     adjcomp(ADJCOMP_A,ADJCOMP_S) ).     
+
+adjp(ADJ_A,ADJP_S) -->
+   qpp(QPP_A,QPP_S),
+   qdet(QDET_A,QDET_S),
+   adj(ADJ_A,ADJ_S),
+   ( [] ;
+     adjcomp(ADJCOMP_A,ADJCOMP_S) ).     
+
+adjp(ADJ_A,ADJP_S) -->
+   ddet(DDET_A,DDET_S),
+   adj(ADJ_A,ADJ_S),
+   ( [] ;
+     adjcomp(ADJCOMP_A,ADJCOMP_S) ).     
+
+adjp(Q_A,ADJP_S) -->
+   q(Q_A,Q_S),
+   { much_er(Q_A)},
+   adjp(ADJP1_A,ADJP1_S),
+   {more_adj(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   a(A_A,A_S),
+   { a_no_any(A_A)},
+   adjp(ADJP1_A,ADJP1_S),
+   {adj_er(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   a(A_A,A_S),
+   { a_no_any(A_A) },
+   q(Q_A,Q_S),
+   { much_er(Q_A)},
+   adjp(ADJP1_A,ADJP1_S),
+   {not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   detq(DETQ_A,DETQ_S),
+   q(Q_A,Q_S),
+   { much_er(Q_A) },
+   adjp(ADJP1_A,ADJP1_S),
+   {more_adj(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   detq(DETQ_A,DETQ_S),
+   a(A_A,A_S),
+   { a_no_any(A_A) },
+   adjp(ADJP1_A,ADJP1_S),
+   {adj_er(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   detq(DETQ_A,DETQ_S),
+   a(A_A,A_S),
+   { a_no_any(A_A) },
+   q(Q_A,Q_S),
+   {much_er(Q_A) },
+   adjp(ADJP1_A,ADJP1_S),
+   {more_adj(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp(ADJP1_A,ADJP_S) -->
+   detq(DETQ_A,DETQ_S),
+   adjp(ADJP1_A,ADJP1_S),
+   { adj_er(ADJP1_A),not_than(ADJP1_A) }.
+
+adjp([than|ADJP1_A],ADJP_S) -->
+   adjp(ADJP1_A,ADJP1_S),
+   { adj_er(ADJP1_A),not_than(ADJP1_A) },
+   thancomp(THANCOMP_A,THANCOMP_S),
+   ( [] ;
+     adjcomp(ADJCOMP_A,ADJCOMP_S) ).
+
+adjp([as|ADJP1_A],ADJP_S) -->
+   as(AS_A,AS_S),
+   adjp(ADJP1_A,ADJP1_S),
+   ( [];
+     { as_adjp(ADJP1_A) },
+     ascomp(ASCOMP_A,ASCOMP_S) ).
+
+adjp([neg,as|ADJP1_A],ADJP_S) -->
+   nt(NOT_A,NOT_S),
+   as(AS_A,AS_S),
+   adjp(ADJP1_A,ADJP1_S),
+   { as_adjp(ADJP1_A) },
+   ascomp(ASCOMP_A,ASCOMP_S).
+
+adjp([neg,as|ADJP1_A],ADJP_S) -->
+   nt(NOT_A,NOT_S),
+   so(SO_A,SO_S),
+   adjp(ADJP1_A,ADJP1_S),
+     { as_adjp(ADJP1_A) },
+     ascomp(ASCOMP_A,ASCOMP_S).
+
+adjp(Q_A,ADJP_S) -->
+   q(Q_A,Q_S),
+   { much_est(Q_A) },
+   adj(ADJ_A,ADJ_S),
+   { more_adj(ADJ_A) },
+   ( [] ;
+     adjcomp(ADJCOMP_A,ADJCOMP_S) ).     
+
+adjp(ADJP1_A,ADJP_S) -->
+   adjp(ADJP1_A,ADJP1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   adjp(ADJP2_A,ADJP2_S).
+
+adjp(ADJP1_A,ADJP_S) --> 
+   adv(ADV_A,ADV_S),
+   adjp(ADJP1_A,ADJP1_S).
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   np(NP_A,NP_S).
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   sdec(SDEC_A,SDEC_S),
+   { not_comp_check(SDEC_A) }.
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   subj(SUBJ_A,SUBJ_S),
+   vp2(VP2_A,VP2_S),
+   { subj_v(SUBJ_A,VP2_A) }.
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   subj(SUBJ_A,SUBJ_S),
+   auxd(AUXD_A,AUXD_S),
+   { subj_auxd(SUBJ_A,AUXD_A) },
+   vp2(VP2_A,VP2_S),
+   { auxd_v(AUXD_A,VP2_A) }.
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   subj(SUBJ_A,SUBJ_S),
+   bep(BEP_A,BEP_S),
+   { subj_bep(SUBJ_A,BEP_A) }.
+
+ascomp(ASCOMP_A,ASCOMP_S) -->
+   as(AS_A,AS_S),
+   subj(SUBJ_A,SUBJ_S),
+   aux(AUX_A,AUX_S),
+   { subj_auxd(SUBJ_A,AUX_A) },
+   bep(BEP_A,BEP_S),
+   { aux_bep(AUX_A,BEP_A) }.
+
+advp(ADV_A,ADVP_S) -->
+   adv(ADV_A,ADV_S).
+
+advp(ADV_A,ADVP_S) -->
+   qdet(QDET_A,QDET_S),
+   adv(ADV_A,ADV_S).
+
+advp(ADV_A,ADVP_S) -->
+   qpp(QPP_A,QPP_S),
+   qdet(QDET_A,QDET_S),
+   adv(ADV_A,ADV_S).
+
+advp(Q_A,Q_S) -->
+   q(Q_A,Q_S),
+   { much_er(Q_A) },
+   adv(ADV_A,ADV_S),
+   { more_adv(ADV_A) }.
+
+advp(Q_A,ADVP_S) -->
+   detq(DETQ_A,DETQ_S),
+   q(Q_A,Q_S),
+   { much_er(Q_A) },
+   adv(ADV_A,ADV_S),
+   { more_adv(ADV_A) }.
+
+advp(ADV_A,ADVP_S) -->
+   detq(DETQ_A,DETQ_S),
+   adv(ADV_A,ADV_S),
+   { adv_er(ADV_A) }.
+
+advp([than|ADVP1_A],ADVP_S) -->
+   advp(ADVP1_A,ADVP1_S),
+   { advp_er(ADVP1_A) },
+   thancomp(THANCOMP_A,THANCOMP_S).
+
+advp(ADVP1_A,ADVP_S) -->
+   as(AS_A,AS_S),
+   advp(ADVP1_A,ADVP1_S),
+  ( { as_advp(ADVP_A) },
+    ascomp(ASCOMP_A,ASCOMP_S);
+    [] ).
+
+advp(Q_A,ADVP_S) -->
+   q(Q_A,Q_S),
+   { q_est(Q_A) },
+   adv(ADV_A,ADV_S).
+
+advp(ADVP_A,ADVP_S) -->
+   p(P_A,P_S),
+   sdec(SDEC_A,SDEC_S).
+
+advp([subconj],ADVP_S) -->
+   subconj(SUBCONJ_A,SUBCONJ_S),
+   sdec(SDEC_A,SDEC_S).
+
+advp([subconj],ADVP_S) -->
+   subconj(SUBCONJ_A,SUBCONJ_S),   
+   vp(VP_A,VP_S),
+   { vp_en(VP_A) ; vp_ing(VP_A) }.
+
+aux([[[havep],HAVEP_A]],AUX_S) -->
+   havep(HAVEP_A,HAVEP_S),
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) }.
+
+aux([[[modalp],MODALP_A]],AUX_S) -->
+   modalp(MODALP_A,MODALP_S),
+  ( adv(ADV_A,ADV_S);[] ),
+   havep(HAVEP_A,HAVEP_S),
+ { modalp_havep(HAVEP_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) }.
+
+aux([[[havep],HAVEP_A]],AUX_S) -->
+   havep(HAVEP_A,HAVEP_S).
+
+aux([[[modalp],MODALP_A]],AUX_S) -->
+   modalp(MODALP_A,MODALP_S),
+  ( adv(ADV_A,ADV_S);[] ),
+   havep(HAVEP_A,HAVEP_S),
+ { modalp_havep(HAVEP_A) }.
+
+aux([[[bep],BEP_A]],AUX_S) -->
+   bep(BEP_A,BEP_S).
+
+aux([[[modalp],MODALP_A]],AUX_S) -->
+   modalp(MODALP_A,MODALP_S),
+  ( adv(ADV_A,ADV_S);[] ),
+   bep(BEP_A,BEP_S),
+ { modalp_bep(BEP_A) }.
+
+aux([[[modalp],MODALP_A]],AUX_S) -->
+   modalp(MODALP_A,MODALP_S).
+
+auxd(AUX_A,AUX_S) -->
+   aux(AUX_A,AUX_S).
+
+auxd([[[dop],DOP_A]],AUXD_S) -->
+   dop(DOP_A,DOP_S).
+
+bep(BE_A,BE_S) -->
+   be(BE_A,BE_S).
+
+bep([neg|BE_A],BE_S) -->
+   be(BE_A,BE_S),
+   nt(NOT_A,NOT_S).
+
+ddet(DET_A,DDET_S) -->
+   det(DET_A,DET_S).
+
+ddet([all|ALL_A],DDET_S) -->
+   all(ALL_A,ALL_S).
+
+ddet([neg,all|ALL_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S).
+
+ddet([all|ALL_A],DDET_S) -->
+   all(ALL_A,ALL_S),
+   ( [] ; of(OF_A,OF_S) ),
+   det(DET_A,DET_S).
+
+ddet([neg,all|ALL_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S),
+   det(DET_A,DET_S).
+
+ddet([num|NUMBER_A],DDET_S) -->
+   det(DET_A,DET_S),
+   numbr(NUMBER_A,NUMBER_S).
+
+ddet(QPP_A,DDET_S) -->
+   det(DET_A,DET_S),
+   qpp(QPP_A,QPP_S).
+
+ddet([all|NUMBER_A],DDET_S) -->
+   all(ALL_A,ALL_S),
+   numbr(NUMBER_A,NUMBER_S).
+
+ddet([all|QPP_A],DDET_S) -->
+   all(ALL_A,ALL_S),
+   qpp(QPP_A,QPP_S).
+
+ddet([neg,all|NUMBER_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S),
+   numbr(NUMBER_A,NUMBER_S).
+
+ddet([neg,all|QPP_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S),
+   qpp(QPP_A,QPP_S).
+
+ddet([all|NUMBER_A],DDET_S) -->
+   all(ALL_A,ALL_S),
+   det(DET_A,DET_S),
+   numbr(NUMBER_A,NUMBER_S).
+
+ddet([all|QPP_A],DDET_S) -->
+   all(ALL_A,ALL_S),
+   det(DET_A,DET_S),
+   qpp(QPP_A,QPP_S).
+
+ddet([neg,all|NUMBER_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S),
+   det(DET_A,DET_S),
+   numbr(NUMBER_A,NUMBER_S).
+
+ddet([neg,all|QPP_A],DDET_S) -->
+   nt(NOT_A,NOT_S),
+   all(ALL_A,ALL_S),
+   det(DET_A,DET_S),
+   qpp(QPP_A,QPP_S).
+
+detq([qpp|QPP_A],DETQ_S) -->
+   qpp(QPP_A,QPP_S).
+
+detq(Q_A,DETQ_S) -->
+   a(A_A,A_S),
+   q(Q_A,Q_S),
+   ( [] ;
+     qpp(QPP_A,QPP_S) ).
+
+detq(Q_A,DETQ_S) -->
+   ddet(DDET_A,DDET_S),
+   q(Q_A,Q_S),
+   ( [] ;
+     qpp(QPP_A,QPP_S) ).
+
+detq(NUMBER_A,DETQ_S) -->
+   a(A_A,A_S),
+   { a_no_any(A_A) },
+   numbr(NUMBER_A,NUMBER_S).
+
+detq(NUMBER_A,DETQ_S) -->
+   numbr(NUMBER_A,NUMBER_S).
+
+detq(Q_A,DETQ_S) -->
+   det(DET_A,DET_S),
+   { det_the(DET_A) },
+   q(Q_A,Q_S),
+   { q_est(Q_A) }.
+
+dop(DO_A,DOP_S) -->
+   do(DO_A,DO_S).
+
+dop([neg|DO_A],DOP_S) -->
+   do(DO_A,DO_S),
+   nt(NOT_A,NOT_S).
+
+gerund([embed],GERUND_S) -->
+   vp(VP_A,VP_S),
+ { gerund_vp(VP_A) }.
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   vp(VP_A,VP_S),
+ { gerund_vp(VP_A) }.
+
+gerund([embed],GERUND_S) -->
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   vp(VP_A,VP_S),
+ { have_vp(VP_A) }.
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   vp(VP_A,VP_S),
+ { have_vp(VP_A) }.
+
+gerund([embed],GERUND_S) -->
+   be(BE_A,BE_S),
+ { gerund_be(BE_A) },
+   vp(VP_A,VP_S),
+ { be_ving(VP_A) }.
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   be(BE_A,BE_S),
+ { gerund_be(BE_A) },
+   vp(VP_A,VP_S),
+ { be_ving(VP_A) }.
+
+gerund([embed],GERUND_S) -->
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   be(BE_A,BE_S),
+ { havep_bep(BE_A) },
+   vp(VP_A,VP_S),
+ { be_ving(VP_A) }.
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   be(BE_A,BE_S),
+ { havep_bep(BE_A) },
+   vp(VP_A,VP_S),
+ { be_ving(VP_A) }.
+
+gerund([embed],GERUND_S) -->
+   be(BE_A,BE_S),
+ { gerund_be(BE_A) },
+   pred(PRED_A,PRED_S).
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   be(BE_A,BE_S),
+ { gerund_be(BE_A) },
+   pred(PRED_A,PRED_S).
+
+gerund([embed],GERUND_S) -->
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   be(BE_A,BE_S),
+ { havep_bep(BE_A) },
+   pred(PRED_A,PRED_S).
+
+gerund([neg,embed],GERUND_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { gerund_vp(HAVE_A) },
+   be(BE_A,BE_S),
+ { havep_bep(BE_A) },
+   pred(PRED_A,PRED_S).
+
+
+havep(HAVE_A,HAVEP_S) -->
+   have(HAVE_A,HAVE_S).
+
+havep([neg|HAVE_A],HAVEP_S) -->
+   have(HAVE_A,HAVE_S),
+   nt(NOT_A,NOT_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   vp(VP_A,VP_S),
+ { infinitive_vp(VP_A) }.
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   vp(VP_A,VP_S),
+ { infinitive_vp(VP_A) }.
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   vp(VP_A,VP_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   vp(VP_A,VP_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   vp(VP_A,VP_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   vp(VP_A,VP_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+   vp(VP_A,VP_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+   vp(VP_A,VP_S).
+
+infinitive([embed],INF_S) -->
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive([neg,embed],INF_S) -->
+   nt(NOT_A,NOT_S),
+   to(TO_A,TO_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive1([embed],INF1_S) -->
+   vp(VP_A,VP_S),
+ { infinitive_vp(VP_A) }.
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   vp(VP_A,VP_S),
+ { infinitive_vp(VP_A) }.
+
+infinitive1([embed],INF1_S) -->
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive1([embed],INF1_S) -->
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   vp(VP_A,VP_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   vp(VP_A,VP_S).
+
+infinitive1([embed],INF1_S) -->
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   pred(PRED_A,PRED_S).
+
+infinitive1([embed],INF1_S) -->
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   vp(VP_A,VP_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   vp(VP_A,VP_S).
+
+infinitive1([embed],INF1_S) -->
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   bep(BEP_A,BEP_S),
+ { infinitive_vp(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive1([embed],INF1_S) -->
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+   vp(VP_A,VP_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+   vp(VP_A,VP_S).
+
+infinitive1([embed],INF1_S) -->
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitive1([neg,embed],INF1_S) -->
+   nt(NOT_A,NOT_S),
+   have(HAVE_A,HAVE_S),
+ { infinitive_vp(HAVE_A) },
+   bep(BEP_A,BEP_S),
+ { havep_bep(BEP_A) },
+   bep(BEP1_A,BEP1_S),
+   pred(PRED_A,PRED_S).
+
+infinitrel(INF_A,IREL_S) -->
+   infinitive(INF_A,INF_S).
+
+infinitrel(VP_A,IREL_S) -->
+   vp(VP_A,VP_S),
+ { infinitrel_vp(VP_A) }.
+
+infinitrel(BE_A,IREL_S) -->
+   be(BE_A,BE_S),
+ { infinitrel_be(BE_A) },
+   vp(VP_A,VP_S),
+ { be_vp(VP_A) }.
+
+infinitrel(IREL_A,IREL_S) -->
+   p(P_A,P_S),
+ { p_for_check(P_A) },
+   np(NP_A,NP_S),
+   infinitive(INF_A,INF_S).
+
+infinitrel(VP_A,IREL_S) -->
+   p(P_A,P_S),
+ { p_for_check(P_A) },
+   np(NP_A,NP_S),
+   vp(VP_A,VP_S),
+ { infinitrel_vp(VP_A) }.
+
+infinitrel(IREL_A,IREL_S) -->
+   p(P_A,P_S),
+ { p_for_check(P_A) },
+   np(NP_A,NP_S),
+   be(BE_A,BE_S),
+ { infinitrel_be(BE_A) },
+   vp(VP_A,VP_S),
+ { be_vp(VP_A) }.
+
+infinitrel(IREL_A,IREL_S) -->
+   p(P_A,P_S),
+   relpro(RELPRO_A,RELPRO_S),
+   infinitive(INF_A,INF_S).
+
+infinitrel(VP_A,IREL_S) -->
+   p(P_A,P_S),
+   relpro(RELPRO_A,RELPRO_S),
+   vp(VP_A,VP_S),
+ { infinitrel_vp(VP_A) }.
+
+infinitrel(IREL_A,IREL_S) -->
+   p(P_A,P_S),
+   relpro(RELPRO_A,RELPRO_S),
+   be(BE_A,BE_S),
+ { infinitrel_be(BE_A) },
+   vp(VP_A,VP_S),
+ { be_vp(VP_A) }.
+
+modalp(MODAL_A,MODALP_S) -->
+   modal(MODAL_A,MODAL_S).
+
+modalp([neg|MODAL_A],MODALP_S) -->
+   modal(MODAL_A,MODAL_S),
+   nt(NOT_A,NOT_S).
+
+ncomp([not_pp|PP_A],NCOMP_S) -->
+   pp(PP_A,PP_S),
+   { ncomp_pp(PP_A) }.
+
+ncomp([not_pp|NP_A],NCOMP_S) -->
+   of(OF_A,OF_S),
+   np(NP_A,NP_S).
+
+ncomp([not_pp|VP2_A],NCOMP_S) -->
+   vp2(VP2_A,VP2_S),
+   { pred_v(VP2_A) }.
+
+ncomp([embed,srel|SREL_A],NCOMP_S) -->
+   srel(SREL_A,SREL_S).
+
+ncomp([embed,not_pp],NCOMP_S) -->
+   infinitrel(INFINITREL_A,INFINITREL_S).
+
+ncomp([adjp|ADJP_A],NCOMP_S) -->
+   adjp(ADJP_A,ADJP_S).
+
+ncomp([than|THANCOMP_A],NCOMP_S) -->
+   thancomp(THANCOMP_A,THANCOMP_S),
+   { not_sdec(THANCOMP_A) }.
+
+ncomp([not_pp|NCOMP1_A],NCOMP_S) -->
+   ncomp(NCOMP1_A,NCOMP1_S),
+   { not_pp_check(NCOMP1_A) },
+   pp(PP_A,PP_S).
+
+nomhd(N_A,NOMHD_S) -->
+   n(N_A,N_S).
+
+nomhd([not_qpp|NOMHD1_A],NOMHD_S) -->
+   adjp(ADJP_A,ADJP_S),
+   { nomhd_adj(ADJP_A) },
+   nomhd(NOMHD1_A,NOMHD1_S).
+
+nomhd(NOMHD1_A,NOMHD_S) -->
+   v(V_A,V_S),
+   { vp_en(V_A) },  /* vp_ing */
+   nomhd(NOMHD1_A,NOMHD1_S).
+
+nomhd([not_qpp|NOMHD1_A],NOMHD_S) -->
+   qpp(QPP_A,QPP_S),
+   { much_er(QPP_A) },
+   adjp(ADJP_A,ADJP_S),
+   { more_adj(ADJP_A) },
+   nomhd(NOMHD1_A,NOMHD1_S).
+
+np(NP_A,NOMHD_S) -->
+   nomhd(NOMHD_A,NOMHD_S),
+   { np_nomhd(NOMHD_A) },
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) } ).
+
+np(NP_A,NOMHD_S) -->
+   a(A_A,A_S),
+   nomhd(NOMHD_A,NOMHD_S),
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) } ).
+
+np(NP_A,NOMHD_S) -->
+   ddet(DDET_A,DDET_S),
+   nomhd(NOMHD_A,NOMHD_S),
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) } ).
+
+np(NP_A,NOMHD_S) -->
+   detq(DETQ_A,DETQ_S),   
+   nomhd(NOMHD_A,NOMHD_S),
+   {( not_qpp(DETQ_A),! ; not_qpp_check(NOMHD_A) )},
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) } ).
+
+np(NP_A,NP_S) -->
+   a(A_A,A_S),
+   ncomp(NCOMP_A,NCOMP_S),
+   { a_ncomp(A_A),
+     np_ncomp(NCOMP_A,NCOMP_A,NP_A) }.
+
+np(NP_A,NP_S) -->
+   ddet(DDET_A,DDET_S),
+   ( [],{np_ddet(DDET_A),NP_A=DDET_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     {ddet_ncomp(DDET_A),
+      np_ncomp(NCOMP_A,NCOMP_A,NP_A)} ).
+
+np(NP_A,NP_S) -->
+   detq(DETQ_A,DETQ_S),   
+   ( [],{NP_A=DETQ_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,DETQ_A,NP_A) }).
+
+np(NP_A,NP_S) -->
+   detq(DETQ_A,DETQ_S),
+   q(Q_A,Q_S),
+   ( [],{NP_A=DETQ_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { not_adj(NCOMP_A),NP_A=NCOMP_A } ).
+
+np(PRON_A,NP_S) -->
+   pron(PRON_A,PRON_S),
+  ( refl(REFL_A,REFL_S),
+    {pro_refl(PRON_A,REFL_A)} ;
+    [] ).
+
+np(NP_A,NP_S) -->
+   pron(PRON_A,PRON_S),
+   { pron_ncomp(PRON_A) },
+   ncomp(NCOMP_A,NCOMP_S),
+   { np_ncomp(NCOMP_A,PRON_A,NP_A) }.
+
+np(NP_A,ADJP_S) -->
+   ddet(DDET_A,DDET_S),
+   adjp(ADJP_A,ADJP_S),
+   {adj_est(ADJP_A)},
+   nomhd(NOMHD_A,NOMHD_S),
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) }).
+
+np(NP_A,ADJP_S) -->
+   ddet(DDET_A,DDET_S),
+   adjp(ADJP_A,ADJP_S),
+   {adj_est(ADJP_A)},
+   ncomp(NCOMP_A,NCOMP_S),
+   { np_ncomp(NCOMP_A,NCOMP_A,NP_A) }.
+
+np(NP_A,ADJP_S) -->
+   ddet(DDET_A,DDET_S),
+   q(Q_A,Q_S),
+   { much_est(Q_A) },
+   adjp(ADJP_A,ADJP_S),
+   { more_adj(ADJP_A) },
+   nomhd(NOMHD_A,NOMHD_S),
+   ( [],{NP_A=NOMHD_A};
+     ncomp(NCOMP_A,NCOMP_S),
+     { np_ncomp(NCOMP_A,NOMHD_A,NP_A) }).
+
+np(NP_A,ADJP_S) -->
+   ddet(DDET_A,DDET_S),
+   q(Q_A,Q_S),
+   { much_est(Q_A) },
+   adjp(ADJP_A,ADJP_S),
+   { more_adj(ADJP_A) },
+   ncomp(NCOMP_A,NCOMP_S),
+   { np_ncomp(NCOMP_A,NCOMP_A,NP_A) }.
+
+np(GERUND_A,NP_S) -->
+   det(DET_A,DET_S),
+   gerund(GERUND_A,GERUND_S).
+
+np(GERUND_A,NP_S) -->
+   gerund(GERUND_A,GERUND_S).
+
+np(NP_A,NP_S) -->
+   as(AS_A,AS_S),
+   qpp(QPP_A,QPP_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np(NP_A,NP_S) -->
+   as(AS_A,AS_S),
+   qpp(QPP_A,QPP_S),
+   nomhd(NOMHD_A,NOMHD_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np(NP_A,NP_S) -->
+   as(AS_A,AS_S),
+   adj(ADJ_A,ADJ_S),
+   ( of(OF_A,OF_S) ; []),
+   np(NP1_A,NP1_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np(NP_A,NP_S) -->
+   as(AS_A,AS_S),
+   qpp(QPP_A,QPP_S),
+   ( of(OF_A,OF_S) ; []),
+   np(NP1_A,NP1_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np([than|NP_A],NP_S) -->
+   as(AS_A,AS_S),
+   adj(ADJ_A,ADJ_S),
+   { adj_er(ADJ_A) },
+   ( of(OF_A,OF_S) ; []),
+   np(NP1_A,NP1_S),
+   { not_than(NP1_A) },
+   thancomp(THANCOMP_A,THANCOMP_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np([than|NP_A],NP_S) -->
+   as(AS_A,AS_S),
+   qpp(QPP_A,QPP_S),
+   adj(ADJ_A,ADJ_S),
+   { much_er(QPP_A),more_adj(ADJ_A) },
+   ( of(OF_A,OF_S) ; []),
+   np(NP1_A,NP1_S),
+   { not_than(NP1_A) },
+   thancomp(THANCOMP_A,THANCOMP_S),
+   ( ascomp(ASCOMP_A,ASCOMP_S) ; [] ).
+
+np(SDEC_A,NP_S) --> 
+   relpro(RELPRO_A,RELPRO_S),
+   { relpro_that(RELPRO_A) },
+   sdec(SDEC_A,SDEC_S).
+
+np(NP_A,NP_S) -->
+   np(NP1_A,NP1_S),
+ { not_paraconj(NP1_A) },
+   paraconj(PARACONJ_A,PARACONJ_S),
+   np(NP2_A,NP2_S),
+ { not_paraconj(NP2_A),
+   not_comma(NP2_A),
+   case_match(NP1_A,NP2_A,CASE),
+   nbr_match(NP1_A,NP2_A,PARACONJ_A,NBR),
+   puta([not_pp|PARACONJ_A],case,CASE,NN),
+   puta(NN,nbr,NBR,NP_A) }.
+
+np([comma|NP2_A],NP_S) --> 
+   np(NP1_A,NP1_S),
+   { not_paraconj(NP1_A) },
+   comma(COMMA_A,COMMA_S),
+   np(NP2_A,NP2_S),
+   { paraconj_check(NP2_A) }.
+
+
+obj(NP_A,OBJ_S) -->
+   np(NP_A,NP_S),
+ { case_check(obj,NP_A) }.
+
+obj1(NP_A,OBJ1_S) -->
+   np(NP_A,NP_S),
+ { case_check(obj,NP_A) }.
+
+obj2(NP_A,OBJ2_S) -->
+   np(NP_A,NP_S),
+ { case_check(obj,NP_A) }.
+
+pp(PP_A,PP_S) -->
+   p(P_A,P_S),
+   obj(OBJ_A,OBJ_S),
+   { append(P_A,OBJ_A,PP_A) }.
+
+pp(P_A,PP_S) -->
+   p(P_A,P_S),
+   {p_within(P_A)},
+   np(NP1_A,NP1_S),
+   of(OF_A,OF_S),
+   np(NP2_A,NP2_S).
+
+pp(P_A,PP_S) -->
+   p(P_A,P_S),
+   {p_between(P_A)},
+   np(NP1_A,NP1_S),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   { paraconj_and(PARACONJ_A) },
+   np(NP2_A,NP2_S).
+
+pred([adjp],PRED_S) -->
+   adjp(ADJP_A,ADJP_S).
+
+pred([np|NP_A],PRED_S) -->
+   np(NP_A,NP_S).
+
+pred([not_pp,pp],PRED_S) -->
+   pp(PP_A,PP_S).
+
+pred([not_pp,passive|VP2_A],PRED_S) -->
+   vp2(VP2_A,VP2_S),
+   { pred_v(VP2_A) }.
+
+pred(PRED1_A,PRED_S) -->
+   pred(PRED1_A,PRED1_S),
+ { not_pp_check(PRED1_A),not_np(PRED1_A),
+   embed_check(PRED1_A) },
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   pp(PP_A,PP_S).
+
+pred(PRED1_A,PRED_S) -->
+   pred(PRED1_A,PRED1_S),
+   { pred_inf(PRED1_A) },
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   infinitive(INF_A,INF_S).
+
+qpp(Q_A,QPP_S) -->
+   q(Q_A,Q_S).
+
+qpp(Q_A,QPP_S) -->
+   qdet(QDET_A,QDET_S),
+   q(Q_A,Q_S).
+
+qpp(QPP_A,QPP_S) -->
+   q(Q_A,Q_S),
+   qpp(QPP1_A,QPP1_S).
+
+qpp(QPP_A,QPP_S) -->
+   qdet(QDET_A,QDET_S),
+   q(Q_A,Q_S),
+   qpp(QPP1_A,QPP1_S).
+
+scmp(SCMP_A,SCMP_S) --> 
+         sdec(SDEC_A,SDEC_S),
+         comma(COMMA_A,COMMA_S),
+         scmp(SCMP_A,SCMP_S).
+
+scmp(SCMP_A,SCMP_S) --> 
+         vp1(VP1_A,VP1_S),
+         comma(COMMA_A,COMMA_S),
+         scmp(SCMP_A,SCMP_S).
+
+scmp(SCMP_A,SCMP_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   sdec(SDEC2_A,SDEC2_S).
+
+scmp(SCMP_A,SCMP_S) -->
+   sdec(SDEC_A,SDEC_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   vp1(VP1_A,VP1_S).
+
+scmp(SCMP_A,SCMP_S) -->
+   vp1(VP1_A,VP1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   sdec(SDEC_A,SDEC_S).
+
+scmp(SCMP_A,SCMP_S) -->
+   vp1(VP11_A,VP11_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   vp1(VP12_A,VP12_S).
+
+sdec([not_adv|VP_A],SDEC_S) -->
+   subj(SUBJ_A,SUBJ_S),
+ ( [];
+   adv(ADV1_A,ADV1_S) ),
+   vp(VP_A,VP_S),
+   { subj_v(SUBJ_A,VP_A) }.
+
+sdec([not_adv|VP_A],SDEC_S) -->
+   subj(SUBJ_A,SUBJ_S),
+ ( [];
+   adv(ADV_A,ADV_S) ),
+   auxd(AUXD_A,AUXD_S),
+   { subj_auxd(SUBJ_A,AUXD_A) },
+   ( []; adv(ADV1_A,ADV1_S) ),
+   vp(VP_A,VP_S),
+   { auxd_v(AUXD_A,VP_A) }.
+
+sdec([not_pp],SDEC_S) -->
+   subj(SUBJ_A,SUBJ_S),
+ ( [];
+   adv(ADV1_A,ADV1_S) ),
+   bep(BEP_A,BEP_S),
+ { subj_bep(SUBJ_A,BEP_A) },
+ ( [];
+   adv(ADV2_A,ADV2_S) ),
+   pred(PRED_A,PRED_S).
+
+sdec([not_pp],SDEC_S) -->
+   subj(SUBJ_A,SUBJ_S),
+   aux(AUX_A,AUX_S),
+ { subj_auxd(SUBJ_A,AUX_A) },
+ ( [];
+   adv(ADV1_A,ADV1_S) ),
+   bep(BEP_A,BEP_S),
+   { aux_bep(AUX_A,BEP_A) },
+ ( [];
+   adv(ADV2_A,ADV2_S) ),
+   pred(PRED_A,PRED_S).
+
+sdec([not_comp],SDEC_S) --> 
+         subj(SUBJ_A,SUBJ_S),
+	 ( adv(ADV_A,ADV_S);[] ),
+         aux(AUX_A,AUX_S),
+	 {subj_auxd(SUBJ_A,AUX_A)},
+         be(BE_A,BE_S),
+	 {aux_bep(BE_A)}.
+
+sdec([not_comp],SDEC_S) --> 
+         subj(SUBJ_A,SUBJ_S),
+	 ( adv(ADV_A,ADV_S);[] ),
+         be(BE_A,BE_S),
+	 {subj_bep(SUBJ_A,BE_A)}.
+
+sdec(SDEC_A,SDEC_S) -->
+   there(THERE_A,THERE_S),
+   bep(BEP_A,BEP_S),
+   subj(SUBJ_A,SUBJ_S),
+   { subj_bep(SUBJ_A,BEP_A) }.
+
+sdec(SDEC_A,SDEC_S) -->
+   there(THERE_A,THERE_S),
+   aux(AUX_A,AUX_S),
+   bep(BEP_A,BEP_S),
+   { aux_bep(AUX_A,BEP_A) },
+   subj(SUBJ_A,SUBJ_S),
+   { subj_auxd(SUBJ_A,AUX_A) }.
+
+sdec(SDEC_A,SDEC_S) -->
+   there(THERE_A,THERE_S),
+   bep(BEP_A,BEP_S),
+   subj(SUBJ_A,SUBJ_S),
+   { subj_bep(SUBJ_A,BEP_A) },
+ ( adv(ADV_A,ADV_S);[] ),
+   pred(PRED_A,PRED_S),
+   { pp_check(PRED_A) }.
+
+sdec(SDEC_A,SDEC_S) -->
+   there(THERE_A,THERE_S),
+   aux(AUX_A,AUX_S),
+   bep(BEP_A,BEP_S),
+   { aux_bep(AUX_A,BEP_A) },
+   subj(SUBJ_A,SUBJ_S),
+   { subj_auxd(SUBJ_A,AUX_A) },
+ ( adv(ADV_A,ADV_S);[] ),
+   pred(PRED_A,PRED_S),
+   { pp_check(PRED_A) }.
+
+sdec([not_pp|SDEC1_A],SDEC_S) -->
+   vp3(VP3_A,VP3_S),
+   comma(COMMA_A,COMMA_S),
+   sdec(SDEC1_A,SDEC1_S).
+
+sdec([not_pp],SDEC_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+   comma(COMMA_A,COMMA_S),
+   vp3(VP3_A,VP3_S).
+
+sdec([not_pp|SDEC_A],SDEC_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+   ( [];comma(COMMA_A,COMMA_S) ),
+   advp(ADVP_A,ADVP_S),
+   { sdec_advp(SDEC1_A,ADVP_A,SDEC_A) }.
+
+sdec([not_pp],SDEC_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+   comma(COMMA_A,COMMA_S),
+   infinitive(INF_A,INF_S).
+
+sentence(SDEC_A,SENT_S) -->
+   sdec(SDEC_A,SDEC_S).
+
+sentence(SENT_A,SENT_S) -->
+   sdec(SDEC_A,SDEC_S),
+   comma(COMMA_A,COMMA_S),
+   scmp(SCMP_A,SCMP_S).
+
+sentence(SENT_A,SENT_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   sdec(SDEC2_A,SDEC2_S).
+
+sentence(SENT_A,SENT_S) -->
+   sdec(SDEC1_A,SDEC1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   conj(CONJ_A,CONJ_S),
+   sdec(SDEC2_A,SDEC2_S).
+
+sentence(SENT_A,SENT_S) --> 
+         sdec(SDEC_A,SDEC_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         paraconj(PARACONJ_A,PARACONJ_S),
+         vp1(VP1_A,VP1_S).
+
+sentence(SIMP_A,SENT_S) -->
+	 simp(SIMP_A,SIMP_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP_A,SIMP_S),
+         comma(COMMA_A,COMMA_S),
+         scmp(SCMP_A,SCMP_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP_A,SIMP_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         paraconj(PARACONJ_A,PARACONJ_S),
+         vp1(VP1_A,VP1_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP1_A,SIMP1_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         paraconj(PARACONJ_A,PARACONJ_S),
+         simp(SIMP2_A,SIMP2_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP1_A,SIMP1_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         paraconj(PARACONJ_A,PARACONJ_S),
+         sdec(SDEC_A,SDEC_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP1_A,SIMP1_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         conj(CONJ_A,CONJ_S),
+         simp(SIMP2_A,SIMP2_S).
+
+sentence(SENT_A,SENT_S) --> 
+         simp(SIMP1_A,SIMP1_S),
+         (comma(COMMA_A,COMMA_S) ; []),
+         conj(CONJ_A,CONJ_S),
+         sdec(SDEC_A,SDEC_S).
+
+sentence(SENT_A,SENT_S) --> 
+         pp(PP_A,PP_S),
+         comma(COMMA_A,COMMA_S),
+         sentence(SENT_A,SENT_S).
+
+sentence(SWHQ_A,SENT_S) -->
+	swhq(SWHQ_A,SWHQ_S).
+
+sentence(SQ_A,SENT_S) -->
+	sq(SQ_A,SQ_S).
+
+sentence(CONJ_A,SENT_S) -->
+     	conj(CONJ_A,CONJ_S),
+        sentence(SENTENCE1_A,SENTENCE1_S).
+
+sentence(SENT_A,SENT_S) -->
+        advp(ADVP_A,ADVP_S),
+        comma(COMMA_A,COMMA_S),
+        sentence(SENT_A,SENT_S).
+
+simp([not_adv|VP_A],SIMP_S) -->
+	 dop(DOP_A,DOP_S),
+	 vp(VP_A,VP_S),
+	 {simp_vp(DOP_A),dop_vp(VP_A)}.
+
+simp([not_adv|VP_A],SIMP_S) -->
+	 vp(VP_A,VP_S),
+	 {simp_vp(VP_A)}.
+
+simp(SIMP_A,SIMP_S) -->
+	 dop(DOP_A,DOP_S),
+	 be(BE_A,BE_S),
+	 {simp_vp(DOP_A),simp_be(BE_A)},
+	 (adv(ADV_A,ADV_S) ; []),
+	 pred(PRED_A,PRED_S).
+
+simp(SIMP_A,SIMP_S) -->
+	 be(BE_A,BE_S),
+	 {simp_be(BE_A)},
+	 (adv(ADV_A,ADV_S) ; []),
+	 pred(PRED_A,PRED_S).
+
+simp(SIMP_A,SIMP_S) -->
+	simp(SIMP1_A,SIMP1_S),
+	( [];comma(COMMA_A,COMMA_S) ),
+	advp(ADVP_A,ADVP_S),
+	{ sdec_advp(SIMP1_A,ADVP_A,SIMP_A) }.
+
+sq([not_pp],SQ_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A)},
+	(adv(ADV_A,ADV_S) ; []),
+	pred(PRED_A,PRED_S).
+
+sq([not_pp],SQ_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A)},
+	(adv(ADV_A,ADV_S) ; []),
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+        (adv(ADV1_A,ADV1_S);[] ),
+	pred(PRED_A,PRED_S).
+
+sq([not_pp],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+	{modalp_bep(BEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	( be(BE_A,BE_S),{be_ving(BE_A)} ;
+	 [] ),
+	pred(PRED_A,PRED_S).
+
+sq([not_pp],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+ 	{ havep_bep(BEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	( be(BE_A,BE_S),{ be_ving(BE_A) } ;
+	 [] ),
+	pred(PRED_A,PRED_S).
+
+sq([not_pp],SQ_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_havep(SUBJ_A,HAVEP_A) },
+	(adv(ADV_A,ADV_S) ; []),
+	be(BE_A,BE_S),
+	{havep_bep(BE_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	( be(BE1_A,BE1_S),{ be_ving(BE1_A) } ;
+	 [] ),
+	pred(PRED_A,PRED_S).
+
+sq(SQ_A,SQ_S) -->
+	dop(DOP_A,DOP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_dop(SUBJ_A,DOP_A) },
+	(adv(ADV_A,ADV_S) ; []),
+	vp(VP_A,VP_S),
+	{ dop_vp(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+        ( adv(ADV1_A,ADV1_S);[] ),
+     	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	vp(VP_A,VP_S),
+	{modalp_vp(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+	{modalp_bep(BEP_A) },
+        (adv(ADV1_A,ADV1_S);[] ),
+  	vp(VP_A,VP_S),
+	{ be_ving(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{modalp_havep(HAVEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp(VP_A,VP_S),
+	{ have_vp(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+        (adv(ADV1_A,ADV1_S);[] ),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq(SQ_A,SQ_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_havep(SUBJ_A,HAVEP_A) },
+	(adv(ADV_A,ADV_S) ; []),
+	vp(VP_A,VP_S),
+	{ have_vp(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_havep(SUBJ_A,HAVEP_A) },
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp(VP_A,VP_S),
+	{ havep_bep(BEP_A),be_ving(VP_A)}.
+
+sq(SQ_A,SQ_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A) },
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp(VP_A,VP_S),
+	{ be_ving(VP_A)}.
+
+sq([neg|SQ_A],SQ_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A)},
+	nt(NOT_A,NOT_S),
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp(VP_A,VP_S),
+	{be_ving(VP_A)}.
+
+
+/***********/
+/* sthereq */
+/***********/
+
+sq(SQ_A,SQ_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+	subj(SUBJ_A,SUBJ_S),
+	{ subj_bep(SUBJ_A,BEP_A) }.
+
+sq(SQ_A,SQ_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+	subj(SUBJ_A,SUBJ_S),
+	{ subj_bep(SUBJ_A,BEP_A) },
+	pred(PRED_A,PRED_S),
+        { pp_check(PRED_A) }.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S).
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S),
+	pred(PRED_A,PRED_S),
+	{ pp_check(PRED_A) }.
+
+sq([neg|SQ_A],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S).
+
+sq([neg|SQ_A],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S),
+	pred(PRED_A,PRED_S),
+	{ pp_check(PRED_A) }.
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S).
+
+sq(SQ_A,SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S),
+	pred(PRED_A,PRED_S),
+	{ pp_check(PRED_A) }.
+
+sq([neg|SQ_A],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{havep_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S).
+
+sq([neg|SQ_A],SQ_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	subj(SUBJ_A,SUBJ_S),
+	pred(PRED_A,PRED_S),
+	{ pp_check(PRED_A) }.
+
+sq(SQ_A,SQ_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{ subj_havep(SUBJ_A,HAVEP_A),
+          havep_bep(BEP_A) }.
+
+sq(SQ_A,SQ_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{ subj_havep(SUBJ_A,HAVEP_A),
+          havep_bep(BEP_A) },
+	pred(PRED_A,PRED_S),
+	{ pp_check(PRED_A) }.
+
+sq(SQ_A,SQ_S) -->
+        sq(SQ_A,SQ_S),
+        ( [];comma(COMMA_A,COMMA_S) ),
+        advp(ADVP_A,ADVP_S),
+	{ subconj_check(ADVP_A) }.
+
+sq1(SQ1_A,SQ1_S) -->
+	dop(DOP_A,DOP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_dop(SUBJ_A,DOP_A) },
+	(adv(ADV_A,ADV_S) ; []),
+	vp2(VP2_A,VP2_S),
+	{ dop_vp(VP2_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	vp2(VP2_A,VP2_S),
+	{modalp_vp(VP2_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp2(VP2_A,VP2_S),
+	{ be_ving(VP2_A) }.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{modalp_havep(HAVEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp2(VP2_A,VP2_S),
+	{have_vp(VP2_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A)},
+        (adv(ADV1_A,ADV1_S);[] ),
+	vp2(VP2_A,VP2_S),
+	{ be_ving(VP2_A) }.
+
+sq1(SQ1_A,SQ1_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_havep(SUBJ_A,HAVEP_A)},
+	(adv(ADV_A,ADV_S) ; []),
+	vp2(VP2_A,VP2_S),
+	{have_vp(VP2_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{ subj_havep(SUBJ_A,HAVEP_A)},
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A)},
+	vp2(VP2_A,VP2_S),
+	{ be_ving(VP2_A) }.
+
+sq1(SQ1_A,SQ1_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A) },
+	vp2(VP2_A,VP2_S),
+	{ be_ving(VP2_A)}.
+
+sq1([neg|SQ1_A],SQ1_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+ 	{subj_bep(SUBJ_A,BEP_A) },
+	nt(NOT_A,NOT_S),
+	vp2(VP2_A,VP2_S),
+ 	{ be_ving(VP2_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	bep(BEP_A,BEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_bep(SUBJ_A,BEP_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	bep(BEP_A,BEP_S),
+	{modalp_bep(BEP_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	modalp(MODALP_A,MODALP_S),
+	subj(SUBJ_A,SUBJ_S),
+	(adv(ADV_A,ADV_S) ; []),
+	havep(HAVEP_A,HAVEP_S),
+	{modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{havep_bep(BEP_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	subj(SUBJ_A,SUBJ_S),
+	{subj_havep(SUBJ_A,HAVEP_A)},
+	(adv(ADV_A,ADV_S) ; []),
+	be(BE_A,BE_S),
+	{havep_bep(BE_A)}.
+
+sq1(SQ1_A,SQ1_S) -->
+        sq1(SQ1_A,SQ1_S),
+        ([]; comma(COMMA_A,COMMA_S) ),
+        advp(ADVP_A,ADVP_S),
+	{ subconj_check(ADVP_A) }.
+
+sq2(BEP_A,SQ2_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S).
+
+sq2(BEP_A,SQ2_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2(BEP_A,SQ2_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(BEP_A,SQ2_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+	pred(PRED_A,PRED_S).
+
+sq2(BEP_A,SQ2_S) -->
+	bep(BEP_A,BEP_S),
+	there(THERE_A,THERE_S),
+	srel(SREL_A,SREL_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) }.
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	srel(SREL_A,SREL_S).
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) }.
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S).
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	pred(PRED_A,PRED_S).
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	bep(BEP_A,BEP_S),
+	{ modalp_bep(BEP_A) },
+	srel(SREL_A,SREL_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A)},
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) }.
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(MODALP_A,SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	srel(SREL_A,SREL_S).
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) }.
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S). 
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	pred(PRED_A,PRED_S).
+
+sq2([neg|MODALP_A],SQ2_S) -->
+	modalp(MODALP_A,MODALP_S),
+	there(THERE_A,THERE_S),
+	nt(NOT_A,NOT_S),
+	havep(HAVEP_A,HAVEP_S),
+	{ modalp_havep(HAVEP_A) },
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	srel(SREL_A,SREL_S).
+
+sq2(HAVEP_A,SQ2_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) }.
+
+sq2(HAVEP_A,SQ2_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+ 	vp(VP_A,VP_S),
+	{ be_ving(VP_A) }.
+
+sq2(HAVEP_A,SQ2_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	be(BE_A,BE_S),
+	{ be_ving(BE_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(HAVEP_A,SQ2_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	pred(PRED_A,PRED_S).
+
+sq2(HAVEP_A,SQ2_S) -->
+	havep(HAVEP_A,HAVEP_S),
+	there(THERE_A,THERE_S),
+	bep(BEP_A,BEP_S),
+	{ havep_bep(BEP_A) },
+	srel(SREL_A,SREL_S).
+
+sq2(SQ2_A,SQ2_S) -->
+	sq2(SQ2_A,SQ2_S),
+        ([];comma(COMMA_A,COMMA_S)),
+	advp(ADVP_A,ADVP_S).
+
+
+srel([not_pp|AUXD_A],SREL_S) -->
+   relpro(RELPRO_A,RELPRO_S),
+   auxd(AUXD_A,AUXD_S),
+   vp(VP_A,VP_S),
+   { auxd_v(AUXD_A,VP_A) }.
+
+srel([not_pp|VP_A],SREL_S) -->
+   relpro(RELPRO_A,RELPRO_S),
+   vp(VP_A,VP_S),
+   { not_en(VP_A) }.
+
+srel([not_pp|AUX_A],SREL_S) -->
+   relpro(RELPRO_A,RELPRO_S),
+   aux(AUX_A,AUX_S),
+   bep(BEP_A,BEP_S),
+   { aux_bep(AUX_A,BEP_A) },
+   pred(PRED_A,PRED_S).
+
+srel([not_pp|BEP_A],SREL_S) -->
+   relpro(RELPRO_A,RELPRO_S),
+   bep(BEP_A,BEP_S),
+   pred(PRED_A,PRED_S).
+
+srel([not_pp|VP2_A],SREL_S) -->
+	subj(SUBJ_A,SUBJ_S),
+	vp2(VP2_A,VP2_S),
+	{ subj_v(SUBJ_A,VP2_A) }.
+
+srel([not_pp|VP2_A],SREL_S) -->
+	subj(SUBJ_A,SUBJ_S),
+	auxd(AUXD_A,AUXD_S),
+	{ subj_auxd(SUBJ_A,AUXD_A) },
+	vp2(VP2_A,VP2_S),
+	{ auxd_v(AUXD_A,VP2_A) }.
+	
+srel(SREL_A,SREL_S) -->
+	subj(SUBJ_A,SUBJ_S),
+	bep(BEP_A,BEP_S),
+	{ subj_bep(SUBJ_A,BEP_A) }.
+
+srel(SREL_A,SREL_S) -->
+	subj(SUBJ_A,SUBJ_S),
+	aux(AUX_A,AUX_S),
+	{ subj_auxd(SUBJ_A,AUX_A) },
+	bep(BEP_A,BEP_S),
+	{ aux_bep(AUX_A,BEP_A) }.
+
+srel([not_pp],SREL_S) -->
+         p(P_A,P_S),
+         relpro(RELPRO_A,RELPRO_S),
+         sdec(SDEC_A,SDEC_S).
+
+srel([not_pp],SREL_S) -->
+   	relpro(RELPRO_A,RELPRO_S),
+	subj(SUBJ_A,SUBJ_S),
+	vp2(VP2_A,VP2_S),
+	{ subj_v(SUBJ_A,VP2_A) }.
+
+srel([not_pp],SREL_S) -->
+   	relpro(RELPRO_A,RELPRO_S),
+	subj(SUBJ_A,SUBJ_S),
+	auxd(AUXD_A,AUXD_S),
+	{ subj_auxd(SUBJ_A,AUXD_A) },
+	vp2(VP2_A,VP2_S),
+	{ auxd_v(AUXD_A,VP2_A) }.
+
+srel(SREL_A,SREL_S) -->
+   	relpro(RELPRO_A,RELPRO_S),
+	subj(SUBJ_A,SUBJ_S),
+	bep(BEP_A,BEP_S),
+	{ subj_bep(SUBJ_A,BEP_A) }.
+
+srel(SREL_A,SREL_S) -->
+   	relpro(RELPRO_A,RELPRO_S),
+	subj(SUBJ_A,SUBJ_S),
+	aux(AUX_A,AUX_S),
+	{ subj_auxd(SUBJ_A,AUX_A) },
+	bep(BEP_A,BEP_S),
+	{ aux_bep(AUX_A,BEP_A) }.
+
+srel([comma|SREL1_A],SREL_S) -->
+   	comma(COMMA_A,COMMA_S),
+  	srel(SREL1_A,SREL1_S).
+
+srel(SREL1_A,SREL_S) -->
+   srel(SREL1_A,SREL1_S),
+ { not_pp_check(SREL1_A),
+   embed_check(SREL1_A) },
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   pp(PP_A,PP_S).
+
+subj(NP_A,SUBJ_S) -->
+   np(NP_A,NP_S),
+ { case_check(subj,NP_A) }.
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whnp(WHNP_A,WHNP_S),
+	sq1(SQ1_A,SQ1_S).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whpp(WHPP_A,WHPP_S),
+	sq(SQ_A,SQ_S).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whadjp(WHADJP_A,WHADJP_S),
+	sq1(SQ1_A,SQ1_S).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whadjp(WHADJP_A,WHADJP_S),
+	sq(SQ_A,SQ_S).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whnp(WHNP_A,WHNP_S),
+	sq2(SQ2_A,SQ2_S).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whnp(WHNP_A,WHNP_S),
+	vp(VP_A,VP_S),
+        {whnp_vp(WHNP_A,VP_A)}.
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whnp(WHNP_A,WHNP_S),
+	auxd(AUXD_A,AUXD_S),
+	vp(VP_A,VP_S),
+	{ auxd_v(VP_A) }.
+
+swhq(SWHQ_A,SWHQ_S) -->
+        whnp(WHNP_A,WHNP_S),
+	bep(BEP_A,BEP_S),
+        {whnp_bep(WHNP_A,BEP_A)},
+	(pred(PRED_A,PRED_S) ; []).
+
+swhq(SWHQ_A,SWHQ_S) -->
+	whnp(WHNP_A,WHNP_S),
+	aux(AUX_A,AUX_S),
+	bep(BEP_A,BEP_S),
+	{ aux_bep(BEP_A) },
+	(pred(PRED_A,PRED_S) ; []).
+
+thancomp(NP_A,THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	np(NP_A,NP_S).
+
+thancomp(SDEC_A,THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	sdec(SDEC_A,SDEC_S),
+	{ not_comp_check(SDEC_A) }.
+
+thancomp(THANCOMP_A,THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	subj(SUBJ_A,SUBJ_S),
+	vp2(VP2_A,VP2_S),
+    	{ subj_v(SUBJ_A,VP2_A) }.
+
+thancomp(THANCOMP_A,THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	subj(SUBJ_A,SUBJ_S),
+	auxd(AUXD_A,AUXD_S),
+    	{ subj_auxd(SUBJ_A,AUXD_A) },
+	vp2(VP2_A,VP2_S),
+    	{ auxd_v(AUX_A,VP2_A) }.
+
+thancomp([BEP_A|THANCOMP_A],THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	subj(SUBJ_A,SUBJ_S),
+	bep(BEP_A,BEP_S),
+	{ subj_bep(SUBJ_A,BEP_A) }.
+
+thancomp([BEP_A|THANCOMP_A],THANCOMP_S) -->
+	than(THAN_A,THAN_S),
+	subj(SUBJ_A,SUBJ_S),
+	aux(AUX_A,AUX_S),
+	{ subj_auxd(SUBJ_A,AUX_A) },
+	bep(BEP_A,BEP_S),
+	{ aux_bep(AUX_A,BEP_A) }.
+
+vp1(VP_A,VP1_S) -->
+   vp(VP_A,VP_S).
+
+vp1(BEP_A,VP1_S) -->
+   bep(BEP_A,BEP_S),
+ ( [];
+   adv(ADV_A,ADV_S) ),
+   pred(PRED_A,PRED_S).
+
+/*     VI     */
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+ { vi(V_A) }.
+
+vp([advp|V_A],VP_S) -->
+   v(V_A,V_S),
+   { vi_adv(V_A) },
+ ( p(P_A,P_S),{p_for_check(P_A)} ;
+   [] ),
+   advp(ADVP_A,ADVP_S),
+   { not_subconj(ADVP_A) }.
+
+vp(VP_A,VP_S) -->
+   v(V_A,V_S),
+   { vi_c(V_A) },
+   np(NP_A,NP_S),
+   { srel_check(V_A,NP_A,VP_A) }.
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   { vi_c(V_A) },
+   adjp(ADJP_A,ADJP_S).
+
+vp([not_pp,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ { vi_inf(V_A) },
+   infinitive(INF_A,INF_S).
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   { vi_vp(V_A) },
+   vp(VP_A,VP_S),
+   { vp_ing(VP_A) ; vp_en(VP_A) }.
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   { vi_vp(V_A) },
+   be(BE_A,BE_S),
+   {be_ving(BE_A)},
+   pred(PRED_A,PRED_S).
+
+/*     VT      */
+
+vp(VP_A,VP_S) -->
+   v(V_A,V_S),
+ { vt_obj(V_A) },
+   obj(OBJ_A,OBJ_S),
+ { srel_check(V_A,OBJ_A,VP_A) }.
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   refl(REFL_A,REFL_S).
+
+vp(VP_A,VP_S) -->
+   v(V_A,V_S),
+ { vt_obj1_obj2(V_A) },
+   obj1(OBJ1_A,OBJ1_S),
+ { not_det(OBJ1_A) },
+   obj2(OBJ2_A,OBJ2_S),
+ { srel_check(V_A,OBJ2_A,VP_A) }.
+
+vp(VP_A,VP_S) -->
+   v(V_A,V_S),
+   { vt_obj_pp(V_A) },
+   obj2(OBJ2_A,OBJ2_S),
+   of(OF_A,OF_S),
+   obj1(OBJ1_A,OBJ1_S),
+ { srel_check(V_A,OBJ1_A,VP_A) }.
+
+vp([not_pp,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+   { vt_inf(V_A) },
+   infinitive(INF_A,INF_S). 
+
+vp([not_pp,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ { vt_obj_inf(V_A) },
+   obj(OBJ_A,OBJ_S),
+   infinitive(INF_A,INF_S).
+
+vp([not_pp,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ { vt_obj_inf1(V_A) },
+   obj(OBJ_A,OBJ_S),
+   infinitive1(INF1_A,INF1_S).
+
+vp([embed|V_A],VP_S) -->
+   v(V_A,V_S),
+   { vt_sdec(V_A) },
+   sdec(SDEC_A,SDEC_S).
+
+vp([embed|V_A],VP_S) -->
+   v(V_A,V_S),
+   { vt_sdec(V_A) },
+ ( np(NP_A,NP_S);
+   [] ),
+   relpro(RELPRO_A,RELPRO_S),
+   {relpro_that(RELPRO_A)},
+   sdec(SDEC_A,SDEC_S).
+
+vp([embed|V_A],VP_S) -->
+   v(V_A,V_S),
+ ( {vt_obj_wh(V_A)},np(NP_A,NP_S);
+   [],{vt_wh(V_A)} ),
+   whpp(WHPP_A,WHPP_S),
+   sdec(SDEC_A,SDEC_S).
+
+vp([embed,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ ( {vt_obj_wh_inf(V_A)},np(NP_A,NP_S);
+   [],{vt_wh_inf(V_A)} ),
+   whpp(WHPP_A,WHPP_S),
+   infinitive(INF_A,INF_S).
+
+vp([embed|V_A],VP_S) -->
+   v(V_A,V_S),
+ ( {vt_obj_wh(V_A)},np(NP_A,NP_S);
+   [],{vt_wh(V_A)} ),
+   whnp(WHNP_A,WHNP_S),
+   sdec(SDEC_A,SDEC_S).
+
+vp([embed,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ ( {vt_obj_wh_inf(V_A)},np(NP_A,NP_S);
+   [],{vt_wh_inf(V_A)} ),
+   whnp(WHNP_A,WHNP_S),
+   infinitive(INF_A,INF_S).
+
+vp([embed|V_A],VP_S) -->
+   v(V_A,V_S),
+ ( {vt_obj_wh(V_A)},np(NP_A,NP_S);
+   [],{vt_wh(V_A)} ),
+   whadjp(WHADJP_A,WHADJP_S),
+   sdec(SDEC_A,SDEC_S).
+
+vp([embed,inf|V_A],VP_S) -->
+   v(V_A,V_S),
+ ({vt_obj_wh_inf(V_A)},np(NP_A,NP_S);
+   [],{vt_wh_inf(V_A)} ),
+   whadjp(WHADJP_A,WHADJP_S),
+   infinitive(INF_A,INF_S).
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   { vt_obj_adjp(V_A) },
+   obj(OBJ_A,OBJ_S),
+   adjp(ADJP_A,ADJP_S).
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   obj(OBJ_A,OBJ_S),
+   vp(VP1_A,VP1_S),
+   { vp_ing(VP1_A),vt_obj_ing(V_A) ; vp_en(VP1_A),vt_obj_en(V_A) }.
+
+vp([advp|VP_A],VP_S) -->
+   v(V_A,V_S),
+   {vt_obj_adv(V_A)},
+   advp(ADVP_A,ADVP_S),
+   { not_subconj(ADVP_A) },
+   obj(OBJ_A,OBJ_S),
+   { srel_check(V_A,OBJ2_A,VP_A) }.
+
+vp([advp|V_A],VP_S) -->
+   v(V_A,V_S),
+   { vt_obj_adv(V_A) },
+   obj(OBJ_A,OBJ_S),
+   { not_srel(OBJ_A) },
+   advp(ADVP_A,ADVP_S),
+   { not_subconj(ADVP_A)}.
+
+vp(V_A,VP_S) -->
+   v(V_A,V_S),
+   { vt_obj_ing(V_A)},
+   obj(OBJ_A,OBJ_S),
+   be(BE_A,BE_S),
+   {be_ving(BE_A)},
+   pred(PRED_A,PRED_S).
+
+vp([advp|VP1_A],VP_S) -->
+   vp(VP1_A,VP1_S),
+ { not_pp_check(VP1_A),embed_check(VP1_A) },
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   pp(PP_A,PP_S),
+   { vp_pp(VP1_A,PP_A) }.
+
+vp([advp|VP1_A],VP1_S) -->
+   vp(VP1_A,VP1_S),
+   { vp_inf(VP1_A) },
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   infinitive(INF_A,INF_S).
+
+vp([advp|VP1_A],VP_S) -->
+   vp(VP1_A,VP1_S),
+   { vp_advp(VP1_A) },
+   advp(ADVP_A,ADVP_S).
+
+vp(VP1_A,VP1_S) -->
+   vp(VP1_A,VP1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   infinitive(INF_A,INF_S).
+
+vp(VP1_A,VP1_S) -->
+   vp(VP1_A,VP1_S),
+ ( [];
+   comma(COMMA_A,COMMA_S) ),
+   paraconj(PARACONJ_A,PARACONJ_S),
+   adjp(ADJP_A,ADJP_S).
+
+vp2(V_A,VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj(V_A) }.
+
+vp2([advp|V_A],VP2_S) -->
+   v(V_A,V_S),
+   { vt_obj_adv(V_A)},
+   advp(ADVP_A,ADVP_S),
+   { not_subconj(ADVP_A) }.
+
+vp2(V_A,VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj1_obj2(V_A) },
+   obj1(OBJ1_A,OBJ1_S),
+ { not_det(OBJ1_A) }.
+
+vp2([not_pp|V_A],VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj_inf(V_A);vt_obj_inf1(V_A) },
+   infinitive(INF_A,INF_S).
+
+vp2([not_pp|V_A],VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj_inf1(V_A) },
+   infinitive1(INF1_A,INF1_S).
+
+vp2([not_pp|V_A],VP2_S) -->
+   v(V_A,V_S),
+   p(P_A,P_S),
+ { vt_obj_pp(V_A,P_A) },
+   obj1(OBJ1_A,OBJ1_S).
+
+vp2([not_pp|V_A],VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj_pp(V_A) },
+   of(OF_A,OF_S),
+   obj1(OBJ1_A,OBJ1_S).
+
+vp2(V_A,VP2_S) -->
+   v(V_A,V_S),
+ { vt_obj_adjp(V_A) },
+   adjp(ADJP_A,ADJP_S).
+
+vp2([advp|VP2_A],VP2_S) -->
+   vp2(VP2_A,VP2_S),
+   { vp_advp(VP2_A) },
+   advp(ADVP_A,ADVP_S),
+   { not_subconj(ADVP_A) }.
+
+vp2(VP2_A,VP2_S) -->
+   vp2(VP2_A,VP2_S),
+   pp(PP_A,PP_S),
+   { vp_pp(VP2_A,PP_A) }.
+
+vp3(VP_A,VP3_A) -->
+   vp(VP_A,VP_S),
+   { participle_check(VP_A) }.
+
+vp3(VP_A,VP3_A) -->
+   have(HAVE_A,HAVE_S),
+   { participle_check(HAVE_A) },
+   ( adv(ADV_A,ADV_S) ; [] ),
+   vp(VP_A,VP_S),
+   { have_vp(VP_A) }.
+
+vp3(VP_A,VP3_A) -->
+   be(BE_A,BE_S),
+   { participle_check(BE_A) },
+   ( adv(ADV_A,ADV_S) ; [] ),
+   pred(PRED_A,PRED_S).
+
+vp3(VP_A,VP3_A) -->
+   have(HAVE_A,HAVE_S),
+   { participle_check(HAVE_A) },
+   be(BE_A,BE_S),
+   { havep_bep(BE_A) },
+   ( adv(ADV_A,ADV_S) ; [] ),
+   pred(PRED_A,PRED_S).
+
+vp3(PRED_A,VP3_S) --> 
+   pred(PRED_A,PRED_S).
+
+vp3([neg|VP3_A],VP3_S) -->
+   nt(NOT_A,NOT_S),
+   vp3(VP3_A,VP3_S),
+   { not_neg(VP3_A) }.
+
+whadjp(WHADJP_A,WHADJP_S) -->
+	how(HOW_A,HOW_S),
+	(adjp(ADJP_A,ADJP_S) ; []).
+
+whadjp(WHDET_A,WHDET_S) -->
+	how(HOW_A,HOW_S),
+	q(Q_A,Q_S).
+
+whdet(WHDET_A,WHDET_S) -->
+	how(HOW_A,HOW_S),
+	q(Q_A,Q_S).
+
+whdet(WHDET_A,WHDET_S) -->
+	how(HOW_A,HOW_S),
+	q(Q1_A,Q1_S),
+ 	( qpp(QPP_A,QPP_S) ;
+     	  [] ),
+	q(Q2_A,Q2_S),
+   	{q_er(Q2_A)}.
+
+whdet(WHN_A,WHDET_S) -->
+	whn(WHN_A,WHN_S).
+
+whnp(WHDET_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S).
+
+whnp(NCOMP_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S),
+	ncomp(NCOMP_A,NCOMP_S).
+
+whnp(NOMHD_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S),
+	nomhd(NOMHD_A,NOMHD_S),
+	( ncomp(NCOMP_A,NCOMP_S);
+  	  [] ).
+
+whnp(WHDET_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S),
+	numbr(NUMBER_A,NUMBER_S).
+
+whnp(NCOMP_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S),
+	numbr(NUMBER_A,NUMBER_S),
+	ncomp(NCOMP_A,NCOMP_S).
+
+whnp(NOMHD_A,WHNP_S) -->
+	whdet(WHDET_A,WHDET_S),
+	numbr(NUMBER_A,NUMBER_S),
+	nomhd(NOMHD_A,NOMHD_S),
+	( ncomp(NCOMP_A,NCOMP_S);
+  	  [] ).
+
+whpp(WHP_A,WHPP_S) -->
+	whp(WHP_A,WHP_S).
+
+whpp(WHPP_A,WHPP_S) -->
+	p(P_A,P_S),
+	whnp(WHNP_A,WHNP_S).
+
+whpp(WHPP_A,WHPP_S) -->
+	p(P_A,P_S),
+	{p_to_from_check(P_A)},
+	whp(WHP_A,WHP_S).
+
+
+
+
+

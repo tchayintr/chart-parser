@@ -1,0 +1,70 @@
+% Change A(_,_) --> B(_,_), ( C(_,_) ; D(_,_) ). to  A --> B,C. and A --> B,D.
+
+dcg2cfg :-
+	write('Input DCG rules file name: '), 
+	read(DCGFile), nl,
+	open(DCGFile,read,RStream),
+	write('Input CFG rules file name: '), 
+	read(CFGFile), nl, 
+	open(CFGFile,write,WStream),!,
+	mk_gram_rules(1,RStream,WStream),
+	close(RStream),
+	close(WStream).
+
+dcg2cfg(DCGFile,CFGFile) :-
+	open(DCGFile,read,RStream),
+	open(CFGFile,write,WStream),!,
+	abolish(grammar/3),
+	mk_gram_rules(1,RStream,WStream),
+	close(RStream),
+	close(WStream).
+
+mk_gram_rules(N,RStream,WStream) :-
+	read(RStream,(Lhs --> Rhs)),
+	all_ex_rules(Rhs,List),
+	get_rid_of_argument(Lhs,Lhs1),!,
+	assert(grammar(N,Lhs1,List)),
+	printout(Lhs1,List,N,N1,WStream),
+	mk_gram_rules(N1,RStream,WStream).
+mk_gram_rules(_N,_RStream,_WStream).
+
+printout(_Lhs,[],N,N,_WStream) :- !.
+printout(Lhs,[L|List],N,N2,WStream) :-
+/*	format(WStream,'~p.~50|%~d~n',[grammar(N,Lhs,L),N]), */
+	format(WStream,'~p-->',[Lhs]),
+	printout_child(L,WStream),
+	N1 is N+1,
+	printout(Lhs,List,N1,N2,WStream).
+
+printout_child([L],WStream) :- 
+	!,format(WStream,'~p.~n',[L]).
+printout_child([L|L1],WStream) :-
+	write(WStream,L),
+	write(WStream,','),
+	printout_child(L1,WStream).
+
+all_ex_rules(A,Rules) :-
+	findall(L,expand(A,L),Rules).
+
+expand(A,L) :-
+	expand(A,[],L1),
+	reverse(L1,L).
+
+expand([],Rest,Rest) :- !.
+expand({_A},Rest,Rest) :- !.
+expand((A;_C),Rest,Rest1) :-
+	expand(A,Rest,Rest1).
+expand((_A;C),Rest,Rest1) :-
+	!,expand(C,Rest,Rest1).
+expand((A,C),Rest,Rest1) :-
+	!,expand(A,Rest,Rest2),
+	expand(C,Rest2,Rest1).
+expand(A,Rest,[B|Rest]) :- get_rid_of_argument(A,B).
+
+/*
+'A2L'((A,C),[A,B|P]) :- !,'A2L'(C,[B|P]).
+'A2L'(Last,[Last]).
+*/
+
+get_rid_of_argument(A,B) :-
+	A =..[B|_].

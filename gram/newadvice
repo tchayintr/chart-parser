@@ -1,0 +1,737 @@
+/**************************/
+/*  Advice Part Programs  */
+/**************************/
+
+/*  aux --> havep,bep.  */
+/*  aux --> modalp,havep,bep.  */
+/*  aux --> modalp,havep  */
+/*  aux --> modalp,bep  */
+
+havep_bep(BEP) :-
+   geta(BEP,form,FORM),
+   FORM==been,!.
+
+modalp_havep(HAVEP) :-
+   geta(HAVEP,form,FORM),
+   FORM==[],!.
+
+modalp_vp(VP) :-
+   geta(VP,form,FORM),
+   FORM==[],!.
+
+modalp_bep(BEP) :-
+   geta(BEP,form,FORM),
+   FORM==be,!.
+
+/*  gerund --> vp.  */
+/*  gerund --> not,vp.  */
+/*  gerund --> have,vp.  */
+/*  gerund --> not,have,vp.  */
+/*  gerund --> be,vp.  */
+/*  gerund --> not,be,vp.  */
+/*  gerund --> be,vp  */
+/*  gerund --> not,be,vp  */
+
+gerund_vp(VP) :-
+   geta(VP,form,FORM),
+   FORM==v_ing,!.
+
+have_vp(VP) :-
+   geta(VP,form,FORM),
+   member(FORM,[v_en]),!.
+
+gerund_be(BE) :-
+   geta(BE,form,FORM),
+   FORM==being,!.
+
+be_ving(VP) :-
+   geta(VP,form,FORM),
+   ( FORM==v_ing ; FORM==being ),!.
+
+/*  infinitive --> (not),to,vp.  */
+/*  infinitive --> (not),to,bep,pred.  */
+/*  infinitive --> (not),to,have,vp.  */
+/*  infinitive --> (not),to,bep,vp.  */
+/*  infinitive --> (not),to,bep,bep,pred.  */
+/*  infinitive --> (not),to,have,bep,vp.  */
+
+infinitive_vp(VP) :-
+   geta(VP,form,FORM),
+   ( FORM==[];
+     FORM==be ),!.
+
+/*  infinitrel --> vp.  */
+/*  infinitrel --> be,vp.  */
+
+infinitrel_vp(VP) :-
+   geta(VP,form,FORM),
+   FORM==v_ing,!.
+
+infinitrel_be(BE) :-
+   geta(BE,form,FORM),
+   FORM==being,!.
+
+be_vp(VP) :-
+   geta(VP,form,FORM),
+   member(FORM,[v_en]),!.
+
+/*  np --> nomhd.  */
+
+np_nomhd(NOMHD) :-
+   geta(NOMHD,nbr,NBR),
+ ( member(c,NOMHD),
+      NBR==pl;
+   member(uc,NOMHD) ),!.
+
+/*  nomhd --> noun,(comma),paraconj,nomhd.  */
+
+case_match(NP1,NP2,NP) :-
+   geta(NP1,case,CASE1),
+   geta(NP2,case,CASE2),
+ ( CASE1==[],
+      NP=CASE2 ;
+   NP=CASE1 ),!.
+
+not_paraconj(NP) :-
+   geta(NP,paraconj,PARACONJ),!,
+   PARACONJ==[].
+
+nbr_match(NP1,NP2,PARA,NBR) :-
+   geta(PARA,paraconj,PARACONJ),
+   ( PARACONJ==and,NBR=pl ;
+     PARACONJ==or,
+     geta(NP1,nbr,NBR1),
+     geta(NP2,nbr,NBR2),
+     ( 
+       ( NBR1==pl ; NBR2==pl ),!,
+         NBR=pl ;
+       NBR=sgl ) ),!.
+
+/*  pp --> p,np.  */
+
+case_check(CASE,NP) :-
+   geta(NP,case,CASE1),
+ ( CASE1==[];
+   CASE==CASE1 ),!.
+
+/*  pred --> v.  */
+/*  pred --> v,obj1.  */
+/*  pred --> pred,(comma),pp.  */
+
+pred_v(V) :-
+   geta(V,form,FORM),
+   member(FORM,[v_en]),!.
+
+/*  sdec --> subj,(auxd),(adv),v.  */
+/*  sdec --> subj,(auxd),(adv),v,(obj1),(obj2).  */
+/*  sdec --> subj,(auxd),(adv),v,(obj),adj1.  */
+/*  sdec --> subj,(auxd),(adv),v,(obj),infinitive.  */
+/*  sdec --> subj,(auxd),(adv),bep,(adv),pred.  */
+
+subj_v(SUBJ,V) :-
+   geta(SUBJ,psn,PSN),
+   geta(SUBJ,nbr,NBR),
+   geta(V,form,FORM),
+ (
+ ( PSN==[];
+   PSN==3 ),
+    ( NBR==[];
+      NBR==sgl ),!,
+    ( FORM==v_s;
+      FORM==v_ed );
+     FORM\==v_s,
+     FORM\==v_en ),!.
+
+auxd_v([AUXD|_],V) :-
+   geta(V,form,FORM),
+ ( member([bep],AUXD),
+      FORM==v_ing;
+   member([havep],AUXD),
+      FORM==v_en;
+   member([modalp],AUXD),
+      FORM==[];
+   member([dop],AUXD),
+      FORM==[] ),!.
+
+vi(V) :-
+   geta(V,vi,VI),
+   member(vp2a,VI),!.
+
+vi_adv(V) :-
+   geta(V,vi,VI),
+   intersect1([vp2b,vp2c],VI),!.
+
+vi_inf(V) :-
+   geta(V,vi,VI),
+   intersect1([vp4a,vp4b,vp4c,vp4d,vp4e],VI),!.
+
+vi_c(V) :-
+   geta(V,vi,VI),
+   intersect1([vp2d,vp4d],VI),!.
+
+vi_vp(V) :-
+   geta(V,vi,VI),
+   member(vp2e,VI),!.
+
+vt_obj(V) :-
+   geta(V,vt,VT),
+   intersect1([vp6a,vp6b,vp6c,vp6d,vp6e,vp7a,vp7b,vp13a,vp13b,vp14,vp15a],VT),!.
+
+vt_obj1_obj2(V) :-
+   geta(V,vt,VT),
+   intersect1([vp12a,vp12b,vp12c],VT),!.
+
+vt_obj_pp(V,PP) :-
+   geta(V,vt,VT),
+   geta(PP,p,P),
+ ( member(vp13a,VT),
+      P==to;
+   member(vp13b,VT),
+      P==for;
+   member(vp14,VT),
+      geta(V,p,P1),
+      member(P,P1) ),!.
+
+vt_obj_inf(V) :-
+   geta(V,vt,VT),
+   intersect1([vp16a,vp17,vp17a,vp17b],VT),!.
+
+vt_obj_inf1(V) :-
+   geta(V,vt,VT),
+   intersect1([vp18a,vp18b,vp18c],VT),!.
+
+vt_obj_ing(V) :-
+   geta(V,vt,VT),
+   intersect1([vp19a,vp19b,vp19c,vp19],VT),!.
+
+vt_obj_en(V) :-
+   geta(V,vt,VT),
+   intersect1([vp24a,vp24b,vp24c,vp24],VT),!.
+
+vt_obj_adjp(V) :-
+   geta(V,vt,VT),
+   intersect1([vp22,vp25],VT),!.
+
+vt_sdec(V) :-
+   geta(V,vt,VT),
+   intersect1([vp9,vp11],VT),!.
+
+vt_wh(V) :-
+   geta(V,vt,VT),
+   member(vp10,VT),!.
+
+vt_wh_inf(V) :-
+   geta(V,vt,VT),
+   member(vp8,VT),!.
+
+vt_obj_wh(V) :-
+   geta(V,vt,VT),
+   member(vp21,VT),!.
+
+vt_obj_wh_inf(V) :-
+   geta(V,vt,VT),
+   member(Vp20,VT),!.
+
+vt_inf(V) :-
+   geta(V,vt,VT),
+   intersect1([vp7a,vp7b],VT),!.
+
+vt_obj_adv(V) :-
+   geta(V,vt,VT),
+   intersect1([vp15a,vp15b],VT),!.
+
+subj_bep(SUBJ,BEP) :-
+   geta(SUBJ,psn,PSN),
+   geta(SUBJ,nbr,NBR),
+   geta(BEP,form,FORM),
+ ( PSN==1,
+    (
+    ( NBR==[];
+      NBR==sgl ),
+	 member(FORM,[am,was]);
+      NBR==pl,
+	 member(FORM,[are,were]) );
+   PSN==2,
+      member(FORM,[are,were]);
+ ( PSN==[];
+   PSN==3 ),
+    (
+    ( NBR==[];
+      NBR==sgl ),
+	 member(FORM,[is,was]);
+      NBR==pl,
+	 member(FORM,[are,were]) ) ),!.
+
+aux_bep([_|AUX],BEP) :-
+   geta(BEP,form,FORM),
+ ( member([bep],AUX),
+      FORM==being;
+   member([havep],AUX),
+      FORM==been;
+   member([modalp],AUX),
+      FORM==be ),!.
+
+/*  sdec --> sdec,(comma),pp.  */
+
+not_pp_check(SDEC) :-
+ ( var(SDEC);
+   \+member(not_pp,SDEC) ),!.
+
+/*  sq --> dop,subj,(adv),vp.  */
+
+subj_dop(SUBJ,DOP) :-
+   geta(SUBJ,psn,PSN),
+   geta(SUBJ,nbr,NBR),
+   geta(DOP,form,FORM),
+ (
+ ( PSN==[];
+   PSN==3 ),
+    ( NBR==[];
+      NBR==sgl ),!,
+    ( FORM==v_s;
+      FORM==v_ed );
+     FORM\==v_s,
+     FORM\==v_en ),!.
+
+subj_havep(SUBJ,HAVEP) :-
+   geta(SUBJ,psn,PSN),
+   geta(SUBJ,nbr,NBR),
+   geta(HAVEP,form,FORM),
+ (
+ ( PSN==[];
+   PSN==3 ),
+    ( NBR==[];
+      NBR==sgl ),!,
+    ( FORM==v_s;
+      FORM==v_ed );
+     FORM\==v_s,
+     FORM\==v_en ),!.
+
+subj_auxd(SUBJ,[[AUXD,AUX]|_]) :-
+   ( member(bep,AUXD),!,
+     subj_bep(SUBJ,AUX);
+     member(havep,AUXD),!,
+     subj_havep(SUBJ,AUX);
+     member(dop,AUXD),!,
+     subj_dop(SUBJ,AUX);
+	true ),!.
+
+/*  simp --> vp.  */
+
+simp_vp(VP) :-
+   geta(VP,form,FORM),
+   FORM==[],!.
+
+/*  simp --> be,(adv),pred.  */
+
+simp_be(BE) :-
+   geta(BE,form,FORM),
+   FORM==be,!.
+
+/*  srel --> srel,(comma),pp.  */
+
+embed_check(SREL) :-
+ ( var(SREL);
+   \+member(embed,SREL) ),!.
+
+/*  vp --> v,np,pp.  */
+
+dop_vp(VP) :-
+   geta(VP,form,FORM),
+   FORM==[],!.
+
+/*  whpp --> p,whp.  */
+
+p_to_from_check(P) :-
+   geta(P,p,P1),
+   (P1==to ; P1==from),!.
+
+/*  swhq --> whnp,(auxd),vp.  */
+
+whnp_vp(WHNP,VP) :-
+   ( VP==[not_pp|X],geta(X,form,FORM);
+     geta(VP,form,FORM) ),
+   ( var(WHNP),!,fail ;
+     geta(WHNP,nbr,NBR) ),
+   (
+     ( NBR==[] ;
+       NBR==sgl ),!,
+     ( FORM==v_s ;
+       FORM==v_ed ) ;
+       FORM\==v_s,
+       FORM\==v_en ),!.
+
+/*  swhq --> whnp,(aux),bep,(pred).  */
+
+whnp_bep(WHNP,BEP) :-
+   geta(BEP,form,FORM),
+   ( var(WHNP),!,fail ;
+     geta(WHNP,nbr,NBR) ),!,
+   (
+     ( NBR==[] ;
+       NBR==sgl ),!,
+       member(FORM,[is,was]) ;
+     member(FORM,[are,were]) ),!.
+
+/* adjcomp --> p,np,(infinitive) */
+/* adjcomp --> enough,p,np,(infinitive) */
+
+p_for_check(P) :-
+   geta(P,p,P1),
+   P1==for,!.
+
+/* pp --> p,np,of,np */
+
+p_within(P) :-
+   geta(P,p,P1),
+   P1==within,!.
+
+/* pp --> p,np,paraconj,np */
+p_between(P) :-
+   geta(P,p,P1),
+   P1==between,!.
+
+paraconj_and(PARA) :-
+   geta(PARA,paraconj,PA),
+   PA==and,!.
+
+/* detq --> det,q */
+
+det_the(DET) :-
+   geta(DET,det,D),
+   D==the,!.
+
+/* adjp --> a,adjp */
+/* adjp --> a,q,adjp */
+/* adjp --> detq,a,adjp */
+/* adjp --> detq,a,q,adjp */
+/* detq --> a,number */
+
+a_no_any(A) :-
+   geta(A,a,A1),
+   ( A1==no ; A1==any ),!.
+
+/* np --> relpro,sdec */
+/* vp --> v,(np),relpro,sdec */
+
+relpro_that(RELPRO) :-
+   geta(RELPRO,relpro,R),
+   R==that,!.
+
+/* advp --> p,vp */
+/* advp --> subconj,vp */
+/* nomhd --> v,nomhd */
+/* sentence --> vp,comma,sentence */
+/* vp --> v,vp */
+/* vp --> v,obj,vp */
+
+vp_en(V) :-
+   geta(V,form,FORM),
+   FORM==v_en,!.
+
+vp_ing(V) :-
+   geta(V,form,FORM),
+   FORM==v_ing,!.
+
+/* np --> ddet,ncomp */
+
+np_ddet(DDET) :-
+   ( intersect1([all,num],DDET);
+     geta(DDET,det,DET),member(DET,[this,that,these,those]) ),!.
+
+/* q,adjp */
+/* q,adv */
+
+much_er(Q) :-
+   geta(Q,form,FORM),
+   FORM==much_er,!.
+
+/* adjp --> q,adj,(adjcomp) */
+/* np --> ddet,q,adj,(nomhd),(ncomp) */
+
+much_est(Q) :-
+   geta(Q,form,FORM),
+   FORM==much_est,!.
+
+more_adj(ADJ) :-
+   geta(ADJ,form,FORM),
+   FORM==more,!.
+
+more_adv(ADV) :-
+   geta(ADV,form,FORM),
+   FORM==more,!.
+
+/* adjp --> a,adjp */
+/* adjp --> detq,(a),adjp */
+/* adjp --> adjp,thancomp */
+/* np --> as,adj,(of),np,thancomp */
+
+adj_er(ADJ) :-
+   geta(ADJ,form,FORM),
+   FORM==adj_er,!.
+
+/* np --> ddet,adj,(nomhd),(ncomp) */
+
+adj_est(ADJ) :-
+   geta(ADJ,form,FORM),
+   FORM==adj_est,!.
+
+/* advp --> detq,adv,(thancomp) */
+/* advp --> adv,thancomp */
+
+adv_er(ADV) :-
+   geta(ADV,form,FORM),
+   FORM==adv_er,!.
+
+advp_er(ADV) :-
+   geta(ADV,form,FORM),
+   ( FORM==adv_er;
+     FORM==much_er ),!.
+
+/* adjp --> as,adjp,ascomp */
+/* adjp --> not,as,adjp,ascomp */
+/* adjp --> not,so,adjp,ascomp */
+
+as_adjp(ADJP) :-
+   \+(member(as,ADJP)),
+   geta(ADJP,form,FORM),
+   ( FORM==[];
+     FORM==more ),!.
+
+/* advp --> as,advp,ascomp */
+
+as_advp(ADVP) :-
+   geta(ADVP,form,FORM),
+   ( FORM==[];
+     FORM==more ),!.
+
+/* whdet --> how,q1,qpp,q2 */
+
+q_er(Q) :-
+   geta(Q,form,FORM),
+   ( FORM==q_er;
+     FORM==much_er ),!.
+
+/* advp --> q,adv */
+/* detq --> det,q */
+
+q_est(Q) :-
+   geta(Q,form,FORM),
+   ( FORM==q_est;
+     FORM==much_est ),!.
+
+/* adjp --> a,(q),adjp */
+/* adjp --> q,adjp */
+/* adjp --> detq,(a),(q),adjp */
+/* adjp --> adjp,thancomp */
+
+not_than(ADJP) :-
+  \+(member(than,ADJP)),!.
+
+/* np --> pron,refl */
+
+pro_refl(PRO,REFL) :-
+   geta(PRO,pron,PRON),
+   geta(REFL,refl,R),
+   PRON==R,!.
+
+np_gen_check(NP).
+
+/* np --> a,ncomp */
+
+a_ncomp(A,NCOMP) :-
+   geta(A,a,A1),
+   member(A1,[some,several]),
+  \+(member([adjp,X],NCOMP)),!.
+
+/* pred --> pred,(comma),infinitive */
+
+pred_inf(PRED) :-
+   \+(member(adjp,PRED)),!.
+
+/* noun --> number,n */
+
+number_n(NUM,N) :-
+   geta(N,nbr,NBR),
+   geta(NUM,nbr,NBR1),
+  ( NBR1==sgl,!,( NBR==sgl ; NBR==[] );
+    NBR==pl;
+    member(uc,N) ),!.
+
+/* vp --> v,(p),advp */
+/* vp --> v,advp,obj */
+/* vp --> v,obj,advp */
+/* vp --> vp,advp */
+
+not_subconj(ADVP) :-
+   \+(member(subconj,ADVP) ),!.
+
+/* pred --> pred,(comma),pp */
+
+not_np(PRED) :-
+   \+(member(np,PRED)),!.
+
+/* vp --> v,obj1,obj2 */
+/* vp2 --> v,obj1 */
+
+not_det(OBJ) :-
+   geta(OBJ,det,DET),
+   DET==[],
+   \+(member(all,OBJ)),!.
+
+/* ncomp --> thancomp */
+
+not_sdec(THAN) :-
+   \+(member(sdec,THAN)),!.
+
+/* nomhd --> noun,comma,(det),nomhd */
+
+paraconj_check(NOMHD) :-
+   geta(NOMHD,paraconj,PARA),
+   PARA\==[],!.
+
+/* nomhd --> noun,(comma),paraconj,(det),nomhd */
+
+not_comma(NOMHD) :-
+   \+(member(comma,NOMHD)),!.
+
+/* np --> nomhd,(ncomp) */
+/* np --> a,(nomhd),(ncomp) */
+/* np --> ddet,(nomhd),(ncomp) */
+/* np --> detq,(nomhd),(ncomp) */
+
+np_ncomp(NCOMP,NOMHD,NP) :-
+   ( member(than,NCOMP),puta(NOMHD,case,obj,NP);
+     member(srel,NCOMP),NP=[srel|NOMHD];
+     member(not_pp,NCOMP),NP=[not_pp|NOMHD];
+     NP=NOMHD ),!.
+
+/* ncomp --> pp */
+
+ncomp_pp(PP) :-
+   geta(PP,p,P),
+   \+(member(P,[to,at,into,off,onto])),!.
+
+/* np --> detq,nomhd,ncomp */
+
+not_qpp(DETQ) :-
+   \+(member(qpp,DETQ)),!.
+
+not_qpp_check(NOMHD) :-
+   \+(member(not_qpp,NOMHD)),!.
+
+/* np --> detq,q,ncomp */
+
+not_adj(NCOMP) :-
+   \+(member(adjp,NCOMP)),!.
+
+/* srel --> relpro,vp */
+
+not_en(VP) :-
+   geta(VP,form,FORM),
+   FORM \== v_en,!.
+
+/* vp --> vp,(comma),pp  */
+
+vp_pp(VP,PP) :-
+      geta(PP,p,P),
+      geta(VP,vt,VT),
+      geta(VP,vi,VI),
+      ( intersect1([vp3a,vp3b],VI);
+        member(vp13a,VT),
+           P==to;
+	member(vp13b,VT),
+	   P==for;
+        geta(VP,p,P1),member(P,P1);
+        member(P,[in,on,at,to,for,by,with,near,before,behind,above,below,over,among]) ),!.
+
+/* sq --> sq,(comma),advp */
+/* sq1 --> sq1,(comma),advp */
+
+subconj_check(ADVP) :-
+	member(subconj,ADVP),!.
+
+/* vp--> vp,(comma),infinitive */
+
+vp_inf(VP) :-
+	\+(member(inf,VP)),
+	( geta(VP,vi,VI),
+	  VI\==[],
+	  \+(intersect1([vp4a,vp4b,vp4c,vp4e,vp4f],VI)),
+	  intersect1([vp2b,vp2c],VI) ;
+	  geta(VP,vt,VT),
+	  \+(intersect1([vp16a,vp17,vp17a,vp17b,vp7a,vp7b,vp8,vp20],VT)),
+	  intersect1([vp15a,vp15b],VT) ),!.
+
+/* vp --> vp,advp */
+
+vp_advp(VP) :-
+	\+(var(VP)),
+          member(advp,VP),!.
+
+/* sdec --> sdec,(comma),advp */
+
+sdec_advp(SDEC1,ADVP,SDEC) :-
+	( member(subconj,ADVP),SDEC=[not_adv|SDEC1],!;
+	  ( var(SDEC1),!;
+	    \+(member(not_adv,SDEC1)),SDEC=SDEC1 ) ),!.
+
+/* np --> pron,ncomp */
+
+pron_ncomp(PRON) :-
+	geta(PRON,pron,PRO),
+        \+(var(PRO)),
+	PRO\==[],
+	member(PRO,[it,something,everything,nothing]),!.
+
+/* nomhd --> adj,nomhd */
+
+nomhd_adj(ADJ) :-
+       geta(ADJ,form,FORM),
+       FORM \== adj_est,!.
+
+/* noun --> a,n */
+
+a_n(A) :-
+   geta(A,a,A1),
+   A1 == a,!.
+
+/* sdec --> there,(aux),bep,subj,(adv),pred */
+/* sq --> bep,there,subj,pred */
+/* sq --> modalp,there,bep,subj,pred */
+/* sq --> modalp,there,not,bep,subj,pred */
+/* sq --> modalp,there,havep,bep,subj,pred */
+/* sq --> modalp,there,not,havep,bep,subj,pred */
+/* sq --> havep,there,bep,subj,pred */
+
+pp_check(PRED) :-
+   member(pp,PRED),!.
+
+/* vp3 --> vp */
+/* vp3 --> have,(adv),vp */
+/* vp3 --> be,(adv),pred */
+/* vp3 --> have,be,(adv),pred */
+/* vp3 --> pred */
+/* vp3 --> not,vp3 */
+/* vp3 --> never,vp3 */
+
+participle_check(V) :-
+	geta(V,form,FORM),
+	( FORM==v_ing ; FORM==being ),!.
+
+not_neg(VP) :-
+    \+(member(neg,VP)),!.
+
+not_comp_check(SDEC) :-
+    \+(member(not_comp,SDEC)),!.
+
+srel_check(V,NP,VP) :-
+    ( member(not_pp,NP),VP=[not_pp|V] ;
+      member(srel,NP),  VP=[not_pp|V] ;
+      VP=V ),!.
+
+not_srel(OBJ) :-
+    \+(member(srel,OBJ)),!.
+
+
+

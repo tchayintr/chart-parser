@@ -1,0 +1,106 @@
+<b>Note: Copy malloc header to local</b>
+
+	$ cp /usr/include/malloc/malloc.h /usr/local/include/malloc.h
+
+
+/*********************
+ =		     =
+ =	README	     =
+ =		     =
+ *********************/
+
+This directory composed of a set of basic programs of chart parsing.
+You can use these programs as you like, but without any guarantee if
+any inconvenience is occurred by these programs.
+
+--
+Explanation:
+
+ * To compile this directory, type
+
+   % make		 # for three versions: chart,chartill,chartpure
+   % make chart          # for chart     version
+   % make chartill       # for chartill  version
+   % make chartpure      # for chartpure version
+
+ * There are three versions of chart parsing algorithms in this
+   directory: chart, chartill, chartpure
+
+   chart version:
+	This program parses a sentence under a grammar given in
+        'gram/gram'. There is two transverse tables to convert between
+        EDR version's categories and PENNTREE version's categories.
+        The tables are denoted in 'src/trancat.c' and 'src/trancat.h'.
+
+   chartill  version:
+        This program is an extension of chart version to parse
+        ill-formed inputs under the algorithm given in [1]-[3]. 
+
+   chartpure version:
+        This program is a pure chart parsing algorithm. There is no
+        convert table anymore. It seems to be the most general version
+        which you can use for parsing a sentence under a grammar.
+
+ * How to change a grammar and What is the form of input sentences ?
+
+   == Chart and Chartill version ==
+
+   [Grammar]
+     You can change a grammar for parsing by replacing a grammar file
+     located at 'gram/gram' with the one you want for chart and chartill
+     version. 
+
+   [Input sentences]
+     In chart and chartill version, the sentence has to be in the form
+     of 'word/category'. The following is an example:
+
+"the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN"
+
+   == Chartpure version ==
+
+   [Grammar]
+     For chartpure version, you have to replace a grammar file named
+     'gram/grampure' with the suitable one.
+
+   [Input sentences]
+     The sentence you want to parse should be in the form of 'a sequence
+     of lexical tags' for chartpure version. An example is shown below.
+
+     DT NNP IN DT JJ JJ NN IN VBG NN
+
+ * How to run the program ?
+
+   Ex.)
+
+   % chart < demo_example/ex_sentences
+
+   % chartill 1 1 1 1 < demo_example/ex_sentences
+
+   % chartpure 1 < demo_example/ex_sentences1
+
+[Reference]
+
+[1]-[3] are available in the Internet. The URL is 
+
+            http://www.jaist.ac.jp/~ping/paper/paper.html
+
+[1] A Parallel Chart-based Parser for Analysing Ill-formed Inputs,
+    Journal of Japanese Society for Artificial Intelligence, 
+    Vol.10, No.4, pp. 531-541, 1995
+
+[2] Analysing Ill-formed Input with Parallel Chart-based Techniques
+    The Sixth Annual conference of JSAI on Artificial Intelligent,
+    pp. 543-546, 1994
+
+[3] Analysing Ill-formed Input with Parallel Chart-based Techniques
+    Proceedings of the International Conference in Commemoration of 
+    20th KISS Anniversary (InfoScience'93), pp. 543-550, 1993
+
+
+--
+Copyright @ Thanaruk Theeramunkong
+ping@jaist.ac.jp
+1995-1996
+Japan Advance Institute of Science and Technology (JAIST)
+Graduate School of Information Science
+

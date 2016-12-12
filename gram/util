@@ -1,0 +1,493 @@
+/*-----------------------------------------------
+|						|
+|		    LangLAB			|
+|		    =======			|
+|						|
+|		By Hozumi Tanaka,		|
+|	Department of Computer Science,		|
+|	Tokyo Institute of Technology.		|
+|	_					|
+|	Ookayama, Meguro-ku, Tokyo, Japan.	|
+|						|
+|	Copyright (C) 1986 Hozumi Tanaka	|
+|						|
+|-----------------------------------------------*/
+
+/********************/
+/* utility programs */
+/********************/
+
+% append
+append([],L,L) :- !.
+append([H|T],L,[H|U]) :-
+   append(T,L,U).
+
+% coment1
+coment1(X) :- !,
+   skip(10),
+   utterance(X).
+
+% coment2
+coment2(X) :- !,
+   get0(C),
+   ( C==42,!,		/* comment really ? */
+     skip_to_asta_slash,
+     utterance(X)
+     ;
+     words(C,Y),	/* sorry i made mistake. recovery. */
+     X=[47|Y]
+   ).
+
+% dot_com
+dot_com :-
+   get0(C),
+   ( C=98,	/* b */
+     break,assert(no_finish),!,fail
+     ;
+     C=99,	/* c */
+     display('Input shell comand'),
+     seeing(File),
+     see(user),
+     read(Command),
+     name(Command,Commandl),
+     system(Commandl),
+     see(File),
+     assert(no_finish),!,
+     fail
+     ;
+     C=100,	/* d */
+     debug,assert(no_finish),!,fail
+     ;
+     C=68,	/* D */
+     nodebug,assert(no_finish),!,fail
+     ;
+     C=102,	/* f */
+     system("ls"),
+     display('input file : '),
+     seeing(File),
+     see(user),
+     read(Filename),
+     bup(Filename),
+     see(File),
+     assert(no_finish),!,
+     fail
+     ;
+     C=104,	/* h */
+     print('    *** help menu for dot-command ***
+	.b	break
+	.c	shell command
+	.d	debugger on
+	.D	debugger off
+	.f	read from file
+	.h	help menu
+	.l	read last sentence
+        '),
+     print('
+	.p	start output to file
+	.P	stop  output to file
+	.r	return to top level
+	.s	set spy
+	.S	reset spy
+	.t	start trace
+	.T	stop  trace
+	'),
+     assert(no_finish),!,
+     fail
+     ;
+     C=108,	/* l */
+     assert(last_sentence),!,fail
+     ;
+     C=112,	/* p */
+     display('output file name : '),
+     assert(to_file),
+     seeing(File),
+     see(user),
+     read(Out_file),
+     tell(Out_file),
+     see(File),
+     assert(no_finish),!,
+     fail
+     ;
+     C=80,	/* P */
+     told,abolish(to_file,0),assert(no_finish),!,fail
+     ;
+     C=114,	/* r */
+     seen,bup
+     ;
+     C=115,	/* s */
+     display('set spy on clause : '),
+     seeing(File),
+     see(user),
+     read(Clause),
+     spy(Clause),
+     see(File),
+     assert(no_finish),!,
+     fail
+     ;
+     C=83,	/* S */
+     display('reset spy on clause : '),
+     seeing(File),
+     see(user),
+     read(Clause),
+     nospy(Clause),
+     see(File),
+     assert(no_finish),!,
+     fail
+     ;
+     C=116,	/* t */
+     trace,assert(no_finish),!,fail
+     ;
+     C=84,	/* T */
+     notrace,assert(no_finish),!,fail
+     ;
+     abort
+   ).
+
+% geta
+geta([],Attr,[]) :- !.
+geta([[Attr|Val]|Rest],Attr,Val) :- !.
+geta([_|Rest],Attr,Val) :-
+   geta(Rest,Attr,Val).
+
+% incr
+incr(S) :-
+   retract(symbol(S,N)),
+   N1 is N+1,
+   assert(symbol(S,N1)),!.
+
+% indent
+indent(X) :- 
+   indent(X,[],last).
+indent(X,N,_) :- 
+   atom(X),
+   prline(N),
+   printf(X),nlf,!.
+indent([X|L],N,H) :-
+   atom(X),
+   prline(N),
+   printf(X),!,
+ ( L=[Y],
+   atom(Y),
+   printf(' -- '),
+   printf(Y),nlf 
+   ;
+   nlf,
+   ( H==last,
+     append(N,['   '],NN)
+     ;
+     append(N,[' | '],NN)
+   ),
+   mapidt(L,NN)
+ ),!.
+indent(X,N,H) :-
+   X=..Y,
+   indent(Y,N,H).
+indent(X,N,_) :- 
+   mapidt(X,N),!.
+	
+% init_symbol
+init_symbol :-
+   abolish(symbol,2).
+
+% intersect1
+intersect1([A|B],L) :-
+   member(A,L),!.
+intersect1([A|B],L) :-
+   intersect1(B,L).
+
+% letter
+letter(32,_) :- !,fail.		/*  space   */
+letter(63,_) :- !,fail.		/*    ?     */
+letter(46,_) :- !,fail.		/*    .     */
+letter(33,_) :- !,fail.		/*    !     */
+letter(44,_) :- !,fail.		/*    ,     */
+letter(31,_) :- !,fail.		/* new line */
+letter(C,C1) :- 		/* to lower */
+ ( 65=<C,C=<90,C1 is C+32 ; C=C1 ).
+
+% mapidt
+mapidt([],N).
+mapidt([X],N) :- 
+ ( X=[] ;  indent(X,N,last) ),!.
+mapidt([X|L],N) :- 
+ ( X=[]
+   ;
+   ( L=[],indent(X,N,last) 
+     ;
+     indent(X,N,middle)
+   )
+ ),!,
+ mapidt(L,N).
+
+% member
+member(H,[H|_]) :- !.
+member(I,[_|T]) :-
+   member(I,T).
+
+% nlf
+nlf :-
+   ttynl,
+   ( to_file,nl ; true),!.
+
+% printf
+printf(A) :-
+   display(A),
+   ( to_file,print(A) ; true),!.
+
+% prline
+prline([]) :-
+   printf(' |-').
+prline([X|L]) :- 
+   printf(X),
+   prline(L).
+
+% puta
+puta([],Attr,Val,[[Attr|Val]]) :- !.
+puta([[Attr|_]|Rest],Attr,Val,[[Attr|Val]|Rest]) :- !.
+puta([Apair|Rest],Attr,Val,[Apair|Nrest]) :-
+   puta(Rest,Attr,Val,Nrest).
+
+% putf
+putf(A) :-
+   ttyput(A),
+   ( to_file,put(A) ; true),!.
+
+% rema
+rema([],Attr,[]) :- !.
+rema([[Attr|_]|Rest],Attr,Nrest) :- !,
+   rema(Rest,Attr,Nrest).
+rema([Apair|Rest],Attr,[Apair|Nrest]) :-
+   rema(Rest,Attr,Nrest).
+
+% reverse
+reverse(X,Y) :-
+   reverse2(X,[],Y),!.
+
+% reverse2
+reverse2([],X,X).
+reverse2([H|X],Y,Z) :-
+   reverse2(X,[H|Y],Z).
+
+% show_time
+show_time :-
+   statistics(runtime,[_,T]),
+   printf(T),
+   printf('  msec. '),
+   nlf,retract(ex_time(Time)),
+   xwadd(Time,T,Time1),
+   assert(ex_time(Time1)),!.
+
+% skip_to_asta_slash
+skip_to_asta_slash :-
+   skip(42),		/* skip to * */
+   repeat,
+   get0(C),
+   C\==42,!,
+ ( C==47,! ; skip_to_asta_slash ).
+
+% time
+/*time(F) :-
+   abolish(ex_time,1),
+   assert(ex_time(0)),
+   statistics(runtime,_),
+   call(F),
+ ( show_time ; statistics(runtime,_), fail ).
+time(F) :-
+   statistics(runtime,[_,T]),
+   ex_time(Time),
+   xwadd(Time,T,Time1),
+   nlf,printf('Total Time = '),
+   printf(Time1),
+   printf('  msec. '),
+   nlf,!,fail.
+*/
+time(Proc) :-
+        statistics(runtime,[Rn_base,_]),
+        statistics(garbage_collection,[_,_,Gc_base]),
+        statistics(stack_shifts,[_,_,Ss_base]),
+        assert(gc_time(Gc_base)),
+        assert(rn_time(Rn_base)),
+        assert(ss_time(Ss_base)),
+      ( call(Proc) ;
+        write(failed) ),
+        statistics(runtime,[Rn_end,_]),
+        statistics(garbage_collection,[_,_,Gc_end]),
+        statistics(stack_shifts,[_,_,Ss_end]),
+        Gc_time is Gc_end - Gc_base,
+        Ss_time is Ss_end - Ss_base,
+        Rn_time is Rn_end - Rn_base, nl,
+      ( no_ex_time ;
+        write('execution time          = '),
+        write(Rn_time), write(' msec'), nl ),
+      ( gc_time ,
+        write('garbage collection time = '),
+        write(Gc_time), write(' msec'), nl 
+	; true ),
+      ( ss_time,
+        write('stack shifting time     = '),
+        write(Ss_time), write(' msec'), nl 
+	; true ),
+        abolish(gc_time,1),
+        abolish(rn_time,1),
+        abolish(ss_time,1), nl, !.
+initialize_time :-
+        write('Do you need the execution time?      '), ttyflush,
+        read(EX),
+      ( EX = y ; EX = yes ; assert(no_ex_time) ),
+        write('Do you need garbage collection time? '), ttyflush,
+        read(GC),
+      ( GC = n ; GC = no ; assert(gc_time) ),
+        write('Do you need stack shifting time?     '), ttyflush,
+        read(SS),
+      ( SS = n ; SS = no ; assert(ss_time) ).
+
+% utterance
+utterance(F) :-
+   get(C),
+   ( C=37,coment1(F),!		/* % */
+     ;
+     C=47,coment2(F),!		/* / */
+     ;
+     C=46,			/* . */
+     ( dot_com ; true ),
+     ( last_sentence,abolish(last_sentence,0) ; true ),
+     last_sentence(F),!
+     ;
+     ttynl,putf(C),words(C,F)
+   ),
+   abolish(last_sentence,1),
+   assert(last_sentence(F)).
+
+% word
+word(C,C1,[C|Cs]) :-
+   get0(C2),
+   putf(C2),
+   ( letter(C2,C3),word(C3,C1,Cs)
+     ;
+     C1=C2,Cs=[]
+   ).
+
+% wrods
+words(C,[P|Ps]) :-
+   letter(C,C1),
+   word(C1,C2,L),
+   name(P,L),
+   words(C2,Ps).
+words(44,[','|Ps]) :-	/* ' */
+   get(C1),
+   putf(C1),
+   words(C1,Ps).
+words(46,[]).		/* . */
+words(63,[]).		/* ? */
+words(33,[]).		/* ! */
+words(_,P) :-
+   get(C),
+   putf(C),
+   words(C,P).
+  
+% xwadd
+xwadd(xwd(X1,X2),xwd(Y1,Y2),xwd(Z1,Z2)) :-
+ ( X2>=0, Y2>=0, Z2 is X2+Y2, Z1 is X1+Y1 ;
+   X2<0, Y2<0, Z2 is X2+Y2, Z1 is X1+Y1+1 ;
+   Z2 is X2+Y2,
+   ( Z2>=0, Z1 is X1+Y1+1 ; Z1 is X1+Y1 ) ),!.
+xwadd(X,Y,Z) :-
+ ( integer(X), X1=xwd(0,X) ; X1=X ),
+ ( integer(Y), Y1=xwd(0,Y) ; Y1=Y ),
+   xwadd(X1,Y1,xwd(Z1,Z2)),
+ ( Z1=0, Z2>=0, Z=Z2 ; Z=xwd(Z1,Z2) ),!.
+
+/************************************************/
+/*	following predicate are not used now	*/
+/************************************************/
+
+% build_list
+build_list([],[]).
+build_list([X|Y],[X_char|Y_list]) :-
+   name(X_char,[X]),
+   build_list(Y,Y_list).
+
+% create_dlist
+create_dlist([A|X],X,[A|U],U) :- !.
+create_dlist([A|X],Y,[A|U],V) :-
+   create_dlist(X,Y,U,V).
+
+create_dlist([A|X],X,[A]) :- !.
+create_dlist([A|X],Y,[A|U]) :-
+   create_dlist(X,Y,U).
+
+% delete
+delete(_,[],[]) :- !.
+delete(H,[H|T],R) :- 
+   !,delete(H,T,R).
+delete(A,[H|T],[H|R]) :-
+   delete(A,T,R).
+
+% depth
+depth([],1) :- !.
+depth(L,0) :-
+   atomic(L),!.
+depth([L|R],N) :-
+   depth(L,Ln),
+   depth(R,Rn),
+ ( Ln<Rn,N is Rn ; N is Ln+1 ).
+
+% equal_lists
+equal_lists([],[]).
+equal_lists([A|B],[A|C]) :-
+   equal_lists(B,C).
+
+% flatten
+flatten([],[]) :- !.
+flatten([A|D],[A|D1]) :-
+   integer(A),!,
+   flatten(D,D1).
+flatten([[]|D],R) :- !,
+   flatten(D,R).
+flatten([[AA|AD]|D],R) :-
+   flatten([AA,AD|D],R).
+
+% intersect
+intersect([],_,[]) :- !.
+intersect(_,[],[]) :- !.
+intersect([A|B],L,[A|C]) :-
+   member(A,L),!,
+   intersect(B,L,C).
+intersect([A|B],L,C) :-
+   intersect(B,L,C).
+
+% last
+last([A|[]],A).
+last([_|B],C) :- 
+   last(B,C).
+
+% member1
+member1(H,[H|_]).
+member1(I,[_|T]) :-
+   member1(I,T).
+
+% select
+select(Head,[Head|Rel],Rel).
+select(A,[Head|Rel],[Head|V]) :-
+   select(A,Rel,V).
+
+% strcat
+strcat(X,Y,XY) :-
+   name(X,Xs),name(Y,Ys),
+   append(Xs,Ys,XYs),name(XY,XYs).
+
+% subset
+subset([],_).
+subset([A|X],Y) :-
+   member(A,Y),
+   subset(X,Y).
+
+% union
+union([],X,X).
+union(X,[],X).
+union([X|R],Y,Z) :-
+   member(X,Y),
+   union(R,Y,Z).
+union([X|R],Y,[X|Z]) :-
+   union(R,Y,Z).
+

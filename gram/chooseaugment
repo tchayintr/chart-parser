@@ -1,0 +1,18 @@
+#!/usr/local/bin/perl
+
+#$/ = "";		# paragraph mode
+#$* 1;			# multi-line mode
+
+# seperate line to words
+# and then delete duplication
+
+while (<>) {
+	chop;
+	$llength=length;
+	$wcounter=0;
+	if( /\{\s*([^\}]*)/ ){
+		printf("%s\n",$1);
+	}
+}
+
+
