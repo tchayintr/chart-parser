@@ -12,19 +12,29 @@ int open_file_read(file,fp)
 char *file;
 FILE **fp;
 {
-  if(NULL == (*fp = fopen(file,"r"))){
-    return(0);
-  }
-  return(1);
+ 	if(NULL == (*fp = fopen(file,"r"))){
+   		return(0);
+  	}
+ 	return(1);
 }
 
 int open_file_write(file,fp)
 char *file;
 FILE **fp;
 {
-  if(NULL == (*fp = fopen(file,"w"))){
-    return(0);
-  }
-  return(1);
+ 	if(NULL == (*fp = fopen(file,"a"))){
+   		return(0);
+ 	}
+ 	return(1);
 }
 
+
+int clear_file_write(file,fp)
+char* file;
+FILE** fp;
+{
+	if(NULL == (*fp = fopen(file,"w"))){
+   		return(0);
+ 	}
+ 	return(1);
+}

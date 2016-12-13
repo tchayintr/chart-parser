@@ -79,123 +79,139 @@ int main( argc, argv )
 int  argc;
 char **argv;
 {
-  char ifname[FNameLen],afname[FNameLen]; /* output inactive and active fname*/
-  int  i,j,topcatnum, sentencenum=1;
-  long k;
+	char ifname[FNameLen],afname[FNameLen]; /* output inactive and active fname*/
+	int  i,j,topcatnum, sentencenum=1;
+	long k;
 
 /* find the index of the category SENTENCE */
-  i=0; j=0;
-  for( j=1 ; j<2*MaxCat ; j++ ){
-      if( ctab[j][0] == '\0' ){
-	  fprintf(stderr,"\"%s\" is not a vilid category\n", SENTENCE);
-	  exit(0);
+  	i=0; j=0;
+	
+	for( j=1 ; j<2*MaxCat ; j++ ){
+		if( ctab[j][0] == '\0' ){
+	  	fprintf(stderr,"\"%s\" is not a vilid category\n", SENTENCE);
+	  	exit(0);
       }
-      if( !strcmp(ctab[j],SENTENCE) ){
-	  topcatnum = j;
-	  break;   }
-  }
-
-  if( argc > 2 ) { 
-      fprintf(stderr,"Usage: progname [arg1] \n"); exit(0); }
-  if( argc == 2 ){
-      strcpy(ifname,inactivehead);
-      strcpy(afname,activehead);
-      strcat(ifname,*(argv+1));  /* Argv+1 is the ordinal number. */
-      strcat(afname,*(argv+1));  /* Argv+1 is the ordinal number. */
-  }
-  
-  while( NULL != fgets(buffer,BufSize,stdin) ){
-      anumedge=0;
-      anumelist=0;
-      anumltree=0;
-      fnumedge=0;
-      fnumelist=0;
-      fnumltree=0;
-
-      if( buffer[0] == 10 ){ break; }
-#ifdef INFO1
-      fprintf(stderr,"%d\n",sentencenum);
-#endif
-#ifdef DEBUG
-      fprintf(stderr,"Buffer = %s",buffer);
-#endif
-      for( i=0 ; i<SentLen ; i++ ){
-	  for( j=0 ; j<SentLen ; j++ ){
-	      ichart[i][j] = NULL;
-	      achart[i][j] = NULL;	} }
-      nc = breakoff(buffer);		/* Break off sentence into array */
-	  printf("\nnc: %d\n", nc);
-      niedge=1;				/* The ordinal number of inactive */
-      naedge=1;				/* The ordinal number of active */
-
-      if( nc>maxlength ){ maxlength = nc; }
-      if( nc<minlength && nc != 0 ){ minlength = nc; }
       
-      initiate();
-      printf("Initiated\n");  
-      parse();
-      printf("Parsed\n");
+      if( !strcmp(ctab[j],SENTENCE) ){
+	  	topcatnum = j;
+	  	break;
+	  }
+  	}
 
-      tmpelptr = ichart[0][nc];
-      while( tmpelptr != NULL ){
-		  k=tcounter(tmpelptr->edge);
-		  if(tmpelptr->edge->gram == topcatnum){ 
+  	if( argc > 2 ) { 
+     	fprintf(stderr,"Usage: progname [arg1] \n"); exit(0); }
+  	if( argc == 2 ){
+     	strcpy(ifname,inactivehead);
+     	strcpy(afname,activehead);
+     	strcat(ifname,*(argv+1));  /* Argv+1 is the ordinal number. */
+     	strcat(afname,*(argv+1));  /* Argv+1 is the ordinal number. */
+     	clear_file_write(ifname, &ifp);
+     	clear_file_write(afname, &afp);
+     	fclose(afp);
+		fclose(ifp);
+  	}
+  
+  	while( NULL != fgets(buffer,BufSize,stdin) ){
+    	anumedge=0;
+    	anumelist=0;
+    	anumltree=0;
+    	fnumedge=0;
+    	fnumelist=0;
+    	fnumltree=0;
 
-#ifdef INFO2
-	      fprintf(stderr,"Sentence No.%d : no-of-parses is %d\n", sentencenum,k); 
-#endif	      
-		      break;
-		  }
-	  	tmpelptr = tmpelptr->next;
-      }
+    	if( buffer[0] == 10 ){ break; }
+		#ifdef INFO1
+      		fprintf(stderr,"%d\n",sentencenum);
+		#endif
+			
+		#ifdef DEBUG
+      		fprintf(stderr,"Buffer = %s",buffer);
+		#endif
+      	
+      	for( i=0 ; i<SentLen ; i++ ){
+	  		for( j=0 ; j<SentLen ; j++ ){
+	    		ichart[i][j] = NULL;
+	    		achart[i][j] = NULL;	
+	   		} 
+	   	}
+      
+      	nc = breakoff(buffer);		/* Break off sentence into array */
+	  	printf("\nNumber of Content: %d\n", nc);
+    	niedge=1;				/* The ordinal number of inactive */
+     	naedge=1;				/* The ordinal number of active */
 
-      if (argc == 2) {
-	  open_file_write(ifname,&ifp);
-	  open_file_write(afname,&afp);
-	  fprintf(stderr,"ifname = %s \n",ifname);
-	  fprintf(stderr,"afname = %s \n",afname);
-	  pmemi();		/* print inactive edge */
-	  pmema();		/* print inactive edge */
-	  fclose(afp);
-	  fclose(ifp);
-      }
-      freememi();	/* Free Memory in Inactive Chart */
-      freemema();	/* Free Memory in Active Chart */
-      sentencenum++; /* Increase the ordinal number of the sentence */
-      printf("anumedge  = %d : fnumedge  = %d\n",anumedge,fnumedge);
-      printf("anumelist = %d : fnumelist = %d\n",anumelist,fnumelist);
-      printf("anumltree = %d : fnumltree = %d\n",anumltree,fnumltree);
+      	if( nc>maxlength ){ maxlength = nc; }
+      	if( nc<minlength && nc != 0 ){ minlength = nc; }
+      
+      	initiate();
+      	printf("Initiated\n");  
+      
+      	parse();
+      	printf("Parsed\n");
 
+      	tmpelptr = ichart[0][nc];
+      	while( tmpelptr != NULL ){
+			k=tcounter(tmpelptr->edge);
+		 	if(tmpelptr->edge->gram == topcatnum){ 
+				#ifdef INFO2
+		    	fprintf(stderr,"Sentence No.%d : no-of-parses is %d\n", sentencenum,k); 
+				#endif	      
+			    break;
+		  	}
+	  		tmpelptr = tmpelptr->next;
+      	}
 
-  }
-#ifdef INFO1
-  fprintf(stderr,"minlength = %d, maxlength = %d\n",minlength,maxlength); 
-#endif
-  exit(0);
+      
+      	if (argc == 2) {
+		 	open_file_write(ifname,&ifp);
+		 	open_file_write(afname,&afp);
+		 	fprintf(stderr,"ifname = %s \n",ifname);
+		 	fprintf(stderr,"afname = %s \n",afname);
+		 	pmemi();		/* print inactive edge */
+		 	pmema();		/* print inactive edge */
+		 	fclose(afp);
+		 	fclose(ifp);
+      	}
+      
+      	freememi();	/* Free Memory in Inactive Chart */
+      	freemema();	/* Free Memory in Active Chart */
+      	sentencenum++; /* Increase the ordinal number of the sentence */
+      	printf("anumedge  = %d : fnumedge  = %d\n",anumedge,fnumedge);
+      	printf("anumelist = %d : fnumelist = %d\n",anumelist,fnumelist);
+      	printf("anumltree = %d : fnumltree = %d\n",anumltree,fnumltree);
+	}
+
+	#ifdef INFO1
+  	fprintf(stderr,"minlength = %d, maxlength = %d\n",minlength,maxlength); 
+	#endif
+  
+  	exit(0);
 }
 
 /* Print Memory in Inactive Chart */
 void pmemi()
 {
-  int i,j;
+	int i,j;
 
-  fprintf(ifp,"%s\n",buffer);
-  for( i=1 ; i<niedge ; i++ ){
-      pedge_parse_i(ordichart[i]);
-  }
+ 	fprintf(ifp,"%s\n",buffer);
+ 	for( i=1 ; i<niedge ; i++ ){
+    	pedge_parse_i(ordichart[i]);
+  	}
+  	fprintf(ifp, "_____________________\n\n");
 }
 
 /* Print Memory in Acitve Chart */
 void pmema()
 {
-  int i,j;
+ 	int i,j;
 
-  fprintf(afp,"%s\n",buffer);  
-  for( i=1 ; i<naedge ; i++ ){
-      pedge_parse_a(ordachart[i]);
-  }
+ 	fprintf(afp,"%s\n",buffer);  
+ 	for( i=1 ; i<naedge ; i++ ){
+    	pedge_parse_a(ordachart[i]);
+  	}
 }
 
+/* Inactive Edge printing */
 void pedge_parse_i(eptr)
 Edgeptr  eptr;
 {
@@ -208,44 +224,52 @@ Edgeptr  eptr;
     fprintf(ifp,"%d ",eptr->to);
     fprintf(ifp,"%s ",ctab[eptr->gram]);
     while(tltptr != NULL){
-	if(tltptr->ltree == NULL){
-	    fprintf(ifp,"a0/"); 
-	}else{
-	    fprintf(ifp,"a%d/",tltptr->ltree->num);
-	}
-	fprintf(ifp,"i%d/",tltptr->rtree->num);
-	tltptr  = tltptr->next;
+		if(tltptr->ltree == NULL){
+		    fprintf(ifp,"a0/"); 
+		}
+		else{
+		    fprintf(ifp,"a%d/",tltptr->ltree->num);
+		}
+		
+		fprintf(ifp,"i%d/",tltptr->rtree->num);
+		tltptr  = tltptr->next;
     }
     fprintf(ifp,"0/0\n");
 }
 
+/* Active Edge printing */
 void pedge_parse_a(eptr)
 Edgeptr  eptr;
 {
-    ListTreeptr tltptr;
-    int i;
+	ListTreeptr tltptr;
+ 	int i;
 
     tltptr = eptr->parse;
     fprintf(afp,"a%d ",eptr->num);
     fprintf(afp,"%d ",eptr->from);
     fprintf(afp,"%d ",eptr->to);
     fprintf(afp,"%s->",ctab[grammar[eptr->gram][0]]);
+
     for ( i=0; i<eptr->dot ; i++ ){
-	fprintf(afp,"%s,",ctab[grammar[eptr->gram][i+1]]);
+		fprintf(afp,"%s,",ctab[grammar[eptr->gram][i+1]]);
     }
     fprintf(afp,"|,");
+    
     for ( i=eptr->dot; grammar[eptr->gram][i+1]!=0 ; i++ ){
-	fprintf(afp,"%s,",ctab[grammar[eptr->gram][i+1]]);
+		fprintf(afp,"%s,",ctab[grammar[eptr->gram][i+1]]);
     }
     fprintf(afp,"%d ",eptr->gram);
+    
     while(tltptr != NULL){
-	if(tltptr->ltree == NULL){
-	    fprintf(afp,"a0/"); 
-	}else{
-	    fprintf(afp,"a%d/",tltptr->ltree->num);
-	}
-	fprintf(afp,"i%d/",tltptr->rtree->num);
-	tltptr  = tltptr->next;
+		if(tltptr->ltree == NULL){
+		    fprintf(afp,"a0/"); 
+		}
+		else{
+		    fprintf(afp,"a%d/",tltptr->ltree->num);
+		}
+		
+		fprintf(afp,"i%d/",tltptr->rtree->num);
+		tltptr  = tltptr->next;
     }
     fprintf(afp,"0/0\n");
 }
@@ -253,37 +277,43 @@ Edgeptr  eptr;
 /* Free Memory in Inactive Chart */
 void freememi()
 {
-  int i,j;
-  EListptr tmpelptr1,tmpelptr2;
+	int i,j;
+	EListptr tmpelptr1,tmpelptr2;
 
-  for( i=0 ; i<SentLen ; i++ ){
-      for( j=0 ; j<SentLen ; j++ ){
-	  if( ichart[i][j] != NULL ){
-	      tmpelptr1 = ichart[i][j];
-	      while( tmpelptr1 != NULL ){
-		  tmpelptr2 = tmpelptr1;
-		  tmpelptr1 = tmpelptr1->next;
-		  freeedge_parse(tmpelptr2->edge);
-		  freeelistproc(tmpelptr2);
-	      } } } }
+ 	for( i=0 ; i<SentLen ; i++ ){
+    	for( j=0 ; j<SentLen ; j++ ){
+			if( ichart[i][j] != NULL ){
+	    		tmpelptr1 = ichart[i][j];
+	      		while( tmpelptr1 != NULL ){
+		  			tmpelptr2 = tmpelptr1;
+		  			tmpelptr1 = tmpelptr1->next;
+				  	freeedge_parse(tmpelptr2->edge);
+				  	freeelistproc(tmpelptr2);
+	      		}
+	      	}
+	      }
+	  }
 }
 
 /* Free Memory in Acitve Chart */
 void freemema()
 {
-  int i,j;
-  EListptr tmpelptr1,tmpelptr2;
+	int i,j;
+ 	EListptr tmpelptr1,tmpelptr2;
 
-  for( i=0 ; i<SentLen ; i++ ){
-      for( j=0 ; j<SentLen ; j++ ){
-	  if( achart[i][j] != NULL ){
-	      tmpelptr1 = achart[i][j];
-	      while( tmpelptr1 != NULL ){
-		  tmpelptr2 = tmpelptr1;
-		  tmpelptr1 = tmpelptr1->next;
-		  freeedge_parse(tmpelptr2->edge); 
-		  freeelistproc(tmpelptr2);
-	      } } } }
+	for( i=0 ; i<SentLen ; i++ ){
+    	for( j=0 ; j<SentLen ; j++ ){
+			if( achart[i][j] != NULL ){
+	      		tmpelptr1 = achart[i][j];
+	      		while( tmpelptr1 != NULL ){
+		  			tmpelptr2 = tmpelptr1;
+				  	tmpelptr1 = tmpelptr1->next;
+				  	freeedge_parse(tmpelptr2->edge); 
+				  	freeelistproc(tmpelptr2);
+	      		}
+	      	}
+	    }
+	}
 }
 
 int tcounter(eptr)
@@ -296,8 +326,9 @@ Edgeptr  eptr;
     if(eptr->numparses == 0){
 		tltptr = eptr->parse;
 		while(tltptr != NULL){
-		    if(tltptr->ltree==NULL){ i=1; }else{
-			i=tcounter(tltptr->ltree);
+		    if(tltptr->ltree==NULL){ i=1; }
+		    else{
+				i=tcounter(tltptr->ltree);
 		    }
 		    j=tcounter(tltptr->rtree);
 		    result = result+(i*j);
@@ -356,28 +387,35 @@ Edgeptr  eptr;
     int j;
 
     for( i=1 ; i<MaxGram ; i++ ){
-	if( grammar[i][0] == 0 ){  
-	    break; }
-	if( grammar[i][1] == eptr->gram ){
-	    allocedge(&teptr);
-	    teptr->from = eptr->from;
-	    teptr->to   = eptr->to;
-	    teptr->numparses = 0;  	/* initial value */
-	    if( grammar[i][2] == 0 ){
-		teptr->type = 1;
-		teptr->gram = grammar[i][0];
-	    }else{ teptr->type = 2; teptr->gram = i; teptr->dot = 1; }
-	    allocltree(&(teptr->parse));
-	    teptr->parse->ltree = NULL;
-	    teptr->parse->rtree = eptr;
-	    teptr->parse->next  = NULL;
-	    allocedgelist(&telistptr);
-	    agendaptr->previous = telistptr;
-	    telistptr->edge = teptr;
-	    telistptr->previous = NULL;
-	    telistptr->next = agendaptr;
-	    agendaptr = telistptr;
-	}
+		if( grammar[i][0] == 0 ){  
+		    break; 
+		}
+		if( grammar[i][1] == eptr->gram ){
+	    	allocedge(&teptr);
+		    teptr->from = eptr->from;
+		    teptr->to   = eptr->to;
+		    teptr->numparses = 0;  	/* initial value */
+		    if( grammar[i][2] == 0 ){
+				teptr->type = 1;
+				teptr->gram = grammar[i][0];
+		    }
+		    else{ 
+		    	teptr->type = 2; 
+		    	teptr->gram = i; 
+		    	teptr->dot = 1; 
+		    }
+		    
+		    allocltree(&(teptr->parse));
+		    teptr->parse->ltree = NULL;
+		    teptr->parse->rtree = eptr;
+		    teptr->parse->next  = NULL;
+		    allocedgelist(&telistptr);
+		    agendaptr->previous = telistptr;
+		    telistptr->edge = teptr;
+		    telistptr->previous = NULL;
+		    telistptr->next = agendaptr;
+		    agendaptr = telistptr;
+		}
     }
 }
 
@@ -391,17 +429,21 @@ Edgeptr  eptr1,eptr2;
     EListptr  telistptr;
 
     if( grammar[eptr1->gram][(eptr1->dot)+1] == eptr2->gram ){
-	allocedge(&teptr);
-	teptr->from = eptr1->from;
-	teptr->to   = eptr2->to;
-	teptr->numparses = 0;    /* initial value */
+		allocedge(&teptr);
+		teptr->from = eptr1->from;
+		teptr->to   = eptr2->to;
+		teptr->numparses = 0;    /* initial value */
+	
 	if( grammar[eptr1->gram][(eptr1->dot)+2] == 0 ){
 	    teptr->type = 1;
 	    teptr->gram = grammar[eptr1->gram][0];
-	}else{ 
+	}
+	else{ 
 	    teptr->type = 2;
 	    teptr->gram = eptr1->gram;
-	    teptr->dot = (eptr1->dot)+1; }
+	    teptr->dot = (eptr1->dot)+1; 
+	}
+
 	allocltree(&(teptr->parse));
 	teptr->parse->ltree = eptr1;
 	teptr->parse->rtree = eptr2;
@@ -422,44 +464,47 @@ Edgeptr  eptr;
     EListptr  tmpptr;
 
     if(eptr->type !=2){
-	tmpptr = ichart[eptr->from][eptr->to];
-	while(tmpptr != NULL){
-	    if(eptr->gram == tmpptr->edge->gram){
-		eptr->parse->next = tmpptr->edge->parse;
-		tmpptr->edge->parse = eptr->parse;
-		freeedgeproc(eptr);
-		return(1);
-	    }else{tmpptr = tmpptr->next;}
-	}
-	allocedgelist(&tmpptr);
-/*	ichart[eptr->from][eptr->to]->previous =  tmpptr; */
-	tmpptr->edge = eptr;
-	ordichart[niedge] = eptr;
-	eptr->num = niedge++;
-	tmpptr->next = ichart[eptr->from][eptr->to];
-	tmpptr->previous = NULL;
-	ichart[eptr->from][eptr->to] = tmpptr;
-	return(0);
-    }else{
-	tmpptr = achart[eptr->from][eptr->to];
-	while(tmpptr != NULL){
-	    if(eptr->gram == tmpptr->edge->gram &&
-	       eptr->dot == tmpptr->edge->dot){
-		eptr->parse->next = tmpptr->edge->parse;
-		tmpptr->edge->parse = eptr->parse;
-		freeedgeproc(eptr);
-		return(1);
-	    }else{tmpptr = tmpptr->next;}
-	}
-	allocedgelist(&tmpptr);
-/*	achart[eptr->from][eptr->to]->previous =  tmpptr; */
-	tmpptr->edge = eptr;
-	ordachart[naedge] = eptr;
-	eptr->num = naedge++;
-	tmpptr->next = achart[eptr->from][eptr->to];
-	tmpptr->previous = NULL;
-	achart[eptr->from][eptr->to] = tmpptr;
-	return(0);
+		tmpptr = ichart[eptr->from][eptr->to];
+		while(tmpptr != NULL){
+		    if(eptr->gram == tmpptr->edge->gram){
+				eptr->parse->next = tmpptr->edge->parse;
+				tmpptr->edge->parse = eptr->parse;
+				freeedgeproc(eptr);
+				return(1);
+		    }
+		    else{tmpptr = tmpptr->next;}
+		}
+
+		allocedgelist(&tmpptr);
+	/*	ichart[eptr->from][eptr->to]->previous =  tmpptr; */
+		tmpptr->edge = eptr;
+		ordichart[niedge] = eptr;
+		eptr->num = niedge++;
+		tmpptr->next = ichart[eptr->from][eptr->to];
+		tmpptr->previous = NULL;
+		ichart[eptr->from][eptr->to] = tmpptr;
+		return(0);
+    }
+    else{
+		tmpptr = achart[eptr->from][eptr->to];
+		while(tmpptr != NULL){
+		    if(eptr->gram == tmpptr->edge->gram && eptr->dot == tmpptr->edge->dot){
+				eptr->parse->next = tmpptr->edge->parse;
+				tmpptr->edge->parse = eptr->parse;
+				freeedgeproc(eptr);
+				return(1);
+		    }
+		    else{tmpptr = tmpptr->next;}
+		}
+		allocedgelist(&tmpptr);
+	/*	achart[eptr->from][eptr->to]->previous =  tmpptr; */
+		tmpptr->edge = eptr;
+		ordachart[naedge] = eptr;
+		eptr->num = naedge++;
+		tmpptr->next = achart[eptr->from][eptr->to];
+		tmpptr->previous = NULL;
+		achart[eptr->from][eptr->to] = tmpptr;
+		return(0);
     }
 }
 
@@ -524,61 +569,60 @@ void initiate()
 int breakoff(buffer)
 char *buffer;
 {
-  int buflen;
-  int i=0, j=0, p=0, n=0, m=0;
-  char tmpchar[CatLen];
+	int buflen;
+ 	int i=0, j=0, p=0, n=0, m=0;
+ 	char tmpchar[CatLen];
 
-  while( buffer[p]==' ' | buffer[p]=='\t' | buffer[p]=='\n' ){ p++; }	  /* Deleting useless head */
-  while( buffer[p]=='%' ){ return(0); }   /* For comment statement */
+ 	while( buffer[p]==' ' | buffer[p]=='\t' | buffer[p]=='\n' ){ p++; }	  /* Deleting useless head */
+ 	while( buffer[p]=='%' ){ return(0); }   /* For comment statement */
 
-  buflen = strlen(buffer);  
-  // printf("buflen: %d\n", buflen); 
-  // printf("%s: %d\n", buffer, buflen);
-  // printf("p = %d\n", p);
-  while( p<=buflen ){			  /* Seperate buffer and Keep tokens in cinsent */
-      if( buffer[p] == '\t' | buffer[p] == ' ' | buffer[p] == '\n' | buffer[p] == '\0' ){   /* Add "buffer[p] == ''" to conquer Bug(breakoff01) */
-	  	word[i][j] = '\0';
-	  	n=j;
-	  	
-	  	/* Finding a non-terminal (word eg. I You, ...) */
-	  	for( ; j>0 ; j-- ){
-	      if ( word[i][j] == '/' ){ break; }
-	  	}
+ 	buflen = strlen(buffer);  
+ 	// printf("buflen: %d\n", buflen); 
+ 	// printf("%s: %d\n", buffer, buflen);
+ 	// printf("p = %d\n", p);
+  	while( p<=buflen ){			  /* Seperate buffer and Keep tokens in cinsent */
+    	if( buffer[p] == '\t' | buffer[p] == ' ' | buffer[p] == '\n' | buffer[p] == '\0' ){   /* Add "buffer[p] == ''" to conquer Bug(breakoff01) */
+		  	word[i][j] = '\0';
+		  	n=j;
+		  	
+	  		/* Finding a non-terminal (word eg. I You, ...) */
+	  		for( ; j>0 ; j-- ){
+	      		if ( word[i][j] == '/' ){ break; }
+	  		}
 
-	  	word[i][j++] = '\0';
-	  	// printf("1 - word: %s\n", word[i]);
-	  	m=0;
-	  	
-	  	/* Finding a (pre)-terminal (cat eg. n, v, ..) */
-	  	for( ; j<n ; j++ ){
-	      cinsent[i][m++]=word[i][j];
-	  	}
-	  	cinsent[i][m] = '\0';
-	  	// printf("cinsent: %s\n", cinsent[i]);
-	  	i++; j=0;
-	  
-	  	/* Add "buffer[p] == ''" to conquer Bug(breakoff01) */
-	  	while( buffer[p] == ' ' | buffer[p] == '\t' | buffer[p] == '\n' | buffer[p] == '\0'){ p++; }	 /* Deleting useless tokens */ 
-      }
-      else{  
-	  	word[i][j++] = buffer[p++]; 
+		  	word[i][j++] = '\0';
+		  	// printf("1 - word: %s\n", word[i]);
+		  	m=0;
+		  	
+		  	/* Finding a (pre)-terminal (cat eg. n, v, ..) */
+		  	for( ; j<n ; j++ ){
+		      cinsent[i][m++]=word[i][j];
+		  	}
+		  	cinsent[i][m] = '\0';
+		  	// printf("cinsent: %s\n", cinsent[i]);
+		  	i++; j=0;
+		  
+		  	/* Add "buffer[p] == ''" to conquer Bug(breakoff01) */
+		  	while( buffer[p] == ' ' | buffer[p] == '\t' | buffer[p] == '\n' | buffer[p] == '\0'){ p++; }	 /* Deleting useless tokens */ 
+      	}
+     	else{  
+	  		word[i][j++] = buffer[p++]; 
 	  	// printf("2 - word: %s\n", word[i]);
-      }
-      // printf("p: %d\n", p);
-  }
-  // printf("Return: %d\n", i);
-  return(i);
+     	}
+      	// printf("p: %d\n", p);
+ 	}
+ 	// printf("Return: %d\n", i);
+ 	return(i);
 }
 
 size_t strlength(str)
 const char* str;
 {
-  int i=0,count=0;
+	int i=0,count=0;
 
-  while (str[i]) {
-    if ((str[i] & 0xC0) != 0x80) count++;
-    i++;
-  }
-  return (count);
-
+ 	while (str[i]) {
+   		if ((str[i] & 0xC0) != 0x80) count++;
+    	i++;
+ 	}
+ 	return (count);
 }

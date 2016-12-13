@@ -31,52 +31,34 @@ int *wc;
     int i=0, state=0;
     char tmpchar[CatLen], tmpchar2[CatLen];
 
+    if(!strcmp(incat, "NGAP")) {
+	    strcpy(tmpchar,"NGAP");
+		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
+	    (*wc)++;
+	
+    }
 
     if( !strcmp(incat,"CC") ) {
-		strcpy(tmpchar,"paraconj");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-		strcpy(tmpchar,"conj");
+		strcpy(tmpchar,"CC");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
     if(!strcmp(incat, "CD")) {
-		strcpy(tmpchar,"numbr");
+		strcpy(tmpchar,"CD");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
     if(!strcmp(incat, "DT")) {
-		if( ! strcmp(wd,"a") ){
-		    strcpy(tmpchar,"a");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-		else{
-		    strcpy(tmpchar,"det");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-
-		if( !strcmp(wd,"that")  ||
-		    !strcmp(wd,"this")  ||
-		    !strcmp(wd,"these") ||
-		    !strcmp(wd,"those") ){
-		    strcpy(tmpchar,"pron");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-    }
-
-    if(! strcmp(incat, "EX") ) {
-		strcpy(tmpchar,"there");
+	    strcpy(tmpchar,"DT");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
+	    (*wc)++;
+	
     }
 
-    if(! strcmp(incat, "FW") ) {
-		strcpy(tmpchar,"n");
+    if(! strcmp(incat, "E") ) {
+		strcpy(tmpchar,"E");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
@@ -88,57 +70,8 @@ int *wc;
     }
 
     if(! strcmp(incat, "JJ") ) {
-		if(!strcmp(wd, "much") ||
-		   !strcmp(wd, "many") ||
-		   !strcmp(wd, "little") ||
-		   !strcmp(wd, "few") ) {
-		    strcpy(tmpchar,"q");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-		if(!strcmp(wd,"enough")) {
-		    strcpy(tmpchar,"enough");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		    strcpy(tmpchar,"adj");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}else{
-		    strcpy(tmpchar,"adj");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-    }
-
-    if(! strcmp(incat, "JJR") ) {
-		if(!strcmp(wd, "more") ||
-		   !strcmp(wd, "less") ||
-		   !strcmp(wd, "fewer") ) {
-		    strcpy(tmpchar,"q_er");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-		strcpy(tmpchar,"adj_er");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "JJS") ) {
-		if(!strcmp(wd, "most") ||
-		   !strcmp(wd, "least") ||
-		   !strcmp(wd, "fewest") ) {
-		    strcpy(tmpchar,"q_est");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-		strcpy(tmpchar,"adj");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "LS") ) {
-		strcpy(tmpchar,"n");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
+		strcpy(tmpchar,"JJ");
+	    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
@@ -167,86 +100,25 @@ int *wc;
     }
 
     if(! strcmp(incat, "NNPS") ) {
-		strcpy(tmpchar,"n");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "PDT") ) {
-		strcpy(tmpchar,"all");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "POS") ) {
-		strcpy(tmpchar,"of");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "PRP") ) {
-		strcpy(tmpchar,"pron");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "PRP$") ) {
-		strcpy(tmpchar,"det");
+		strcpy(tmpchar,"NNPS");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
     if(! strcmp(incat, "RB") ) {
-		if(!strcmp(wd,"not") || 
-		   !strcmp(wd,"n't") ){
-		    strcpy(tmpchar,"nt");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		    state = 1;
-		}
-		if(!strcmp(wd, "very")  ) {
-		    strcpy(tmpchar,"qdet");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		    state = 1;
-		}
-		if( state == 0 ){
-		    strcpy(tmpchar,"adv");
-		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		    (*wc)++;
-		}
-		state = 0;
-    }
-
-    if(! strcmp(incat, "RBR") ) {
-		strcpy(tmpchar,"adj_er");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "RBS") ) {
-		strcpy(tmpchar,"adj");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
+	    strcpy(tmpchar,"RB");
+	    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
     if(! strcmp(incat, "RP") ) {
-		strcpy(tmpchar,"adv");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "Sym") ) {
-		strcpy(tmpchar,"n");
+		strcpy(tmpchar,"RP");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
 
     if(! strcmp(incat, "TO") ) {
-		strcpy(tmpchar,"to");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-		strcpy(tmpchar,"p");
+		strcpy(tmpchar,"TO");
 		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		(*wc)++;
     }
@@ -262,36 +134,6 @@ int *wc;
 		    wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
 		    (*wc)++;
 		}
-    }
-
-    if(! strcmp(incat, "WDT") ) {
-		strcpy(tmpchar,"whn");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-		strcpy(tmpchar,"relpro");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "WP") ) {
-		strcpy(tmpchar,"whp");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-		strcpy(tmpchar,"relpro");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "WP$") ) {
-		strcpy(tmpchar,"whdet");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
-    }
-
-    if(! strcmp(incat, "WRB") ) {
-		strcpy(tmpchar,"how");
-		wordcat[i] = conv_cat_numbr(tmpchar); i++ ;
-		(*wc)++;
     }
 }
 
