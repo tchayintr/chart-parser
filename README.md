@@ -74,7 +74,7 @@ any inconvenience is occurred by these programs.
      of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
      The following is an example:
 
-      "the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
+      "the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN " <br>
       "ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
 
 
