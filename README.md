@@ -1,5 +1,5 @@
 # Chart-parser
-<b>MacOS usage: </b>
+<b>MacOS USAGE: </b>
 
 <b>Copy malloc header to local</b>
 
@@ -17,16 +17,16 @@ You can use these programs as you like, but without any guarantee if
 any inconvenience is occurred by these programs.
 
 --
-Explanation:
+<b>Explanation:</b>
 
  * To compile this directory, type
 
-   % make		             # for three versions: chart,chartill,chartpure <br>
-   % make chart          # for chart     version <br>
-   % make chartill       # for chartill  version <br>
-   % make chartpure      # for chartpure version <br>
-   % make chart-th		   # for chart Thai supported version <br>
-   % make chartill-th	   # for chartill Thai supported version <br>
+   % make		                 # for three+two versions: chart,chartill,chartpure,chart-th,chartill-th
+   % make chart              # for chart     version
+   % make chartill           # for chartill  version
+   % make chartpure          # for chartpure version
+   % make chart-th		       # for chart Thai supported version
+   % make chartill-th	       # for chartill Thai supported version 
 
  * There are 3+2 versions of chart parsing algorithms in this
    directory: chart, chartill, chartpure, chart-th, chartill-th
@@ -56,7 +56,7 @@ Explanation:
 
  * How to change a grammar and What is the form of input sentences ?
 
-   == Chart and Chartill version ==
+   == Chart, Chartill, Chart-th and Chartill-th version ==
 
    <b>[Grammar]</b>
      You can change a grammar for parsing by replacing a grammar file
@@ -74,8 +74,8 @@ Explanation:
      of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
      The following is an example:
 
-"the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
-"ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
+     "the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
+     "ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
 
 
    == Chartpure version ==
@@ -104,8 +104,8 @@ Explanation:
 
    % ./chartill 1 1 1 1 < demo_example/ex_sentences
 
-   Note:  [outputfile DIR] in chart could be blank for displaying in STDOUT <br>
-   		  ./chartill [outputfile DIR] [no.err] [wlimit] [info]
+   Note:  Chart: [outputfile DIR] could be blank for displaying in STDOUT <br>
+   		    Chartill: ./chartill [outputfile DIR] [no.err] [wlimit] [info]
 
 [Reference]
 
