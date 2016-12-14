@@ -58,33 +58,33 @@ any inconvenience is occurred by these programs.
 
    == Chart, Chartill, Chart-th and Chartill-th version ==
 
-   [Grammar]
+   - [Grammar]
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram' with the one you want for chart and chartill
      version.
 
-   [Thai Grammar]
+   - [Thai Grammar]
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram.th' with the one you want for chart and chartill
      version OR Makefile.
 
 
-   [Input sentences]
+   - [Input sentences]
      In chart and chartill version, the sentence has to be in the form
      of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
      The following is an example:
 
-     "the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
-     "ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
+      "the/DT Secretariat/NNP for/IN the/DT first/JJ international/JJ conference/NN of/IN interpreting/VBG telephony/NN "
+      "ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN "
 
 
    == Chartpure version ==
 
-   [Grammar]
+   - [Grammar]
      For chartpure version, you have to replace a grammar file named
      'gram/grampure' with the suitable one.
 
-   [Input sentences]
+   - [Input sentences]
      The sentence you want to parse should be in the form of 'a sequence
      of lexical tags' for chartpure version. An example is shown below.
 
