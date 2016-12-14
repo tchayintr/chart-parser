@@ -31,45 +31,45 @@ any inconvenience is occurred by these programs.
  * There are 3+2 versions of chart parsing algorithms in this
    directory: chart, chartill, chartpure, chart-th, chartill-th
 
-   <b>- chart version:</b>
+   - chart version:
 	      This program parses a sentence under a grammar given in
         'gram/gram'. There is two transverse tables to convert between
         EDR version's categories and PENNTREE version's categories.
         The tables are denoted in 'src/trancat.c' and 'src/trancat.h'.
 
-   <b>- chartill  version:</b>
+   - chartill  version:
         This program is an extension of chart version to parse
         ill-formed inputs under the algorithm given in [1]-[3]. 
 
-   <b>- chartpure version:</b>
+   - chartpure version:
         This program is a pure chart parsing algorithm. There is no
         convert table anymore. It seems to be the most general version
         which you can use for parsing a sentence under a grammar.
 
-   <b>- chart-th version:</b>
+   - chart-th version:
 	      This program parses a sentence under a grammar given in
         'gram/gram.th'.
         The tables are denoted in 'src/trancat-th.c' and 'src/trancat-th.h'.
 
-   <b>- chartill-th version:</b>
+   - chartill-th version:
         This program is an extension of chart-th version to parse
 
  * How to change a grammar and What is the form of input sentences ?
 
    == Chart, Chartill, Chart-th and Chartill-th version ==
 
-   <b>[Grammar]</b>
+   [Grammar]
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram' with the one you want for chart and chartill
      version.
 
-   <b>[Thai Grammar]</b>
+   [Thai Grammar]
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram.th' with the one you want for chart and chartill
      version OR Makefile.
 
 
-   <b>[Input sentences]</b>
+   [Input sentences]
      In chart and chartill version, the sentence has to be in the form
      of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
      The following is an example:
@@ -80,11 +80,11 @@ any inconvenience is occurred by these programs.
 
    == Chartpure version ==
 
-   <b>[Grammar]</b>
+   [Grammar]
      For chartpure version, you have to replace a grammar file named
      'gram/grampure' with the suitable one.
 
-   <b>[Input sentences]</b>
+   [Input sentences]
      The sentence you want to parse should be in the form of 'a sequence
      of lexical tags' for chartpure version. An example is shown below.
 
