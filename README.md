@@ -21,12 +21,12 @@ any inconvenience is occurred by these programs.
 
  * To compile this directory, type
 
-   % make		                 # for three+two versions: chart,chartill,chartpure,chart-th,chartill-th
-   % make chart              # for chart     version
-   % make chartill           # for chartill  version
-   % make chartpure          # for chartpure version
-   % make chart-th		       # for chart Thai supported version
-   % make chartill-th	       # for chartill Thai supported version 
+   % make		                 # for three+two versions: chart,chartill,chartpure,chart-th,chartill-th <br>
+   % make chart              # for chart     version <br>
+   % make chartill           # for chartill  version <br>
+   % make chartpure          # for chartpure version <br>
+   % make chart-th		       # for chart Thai supported version <br>
+   % make chartill-th	       # for chartill Thai supported version <br>
 
  * There are 3+2 versions of chart parsing algorithms in this
    directory: chart, chartill, chartpure, chart-th, chartill-th
