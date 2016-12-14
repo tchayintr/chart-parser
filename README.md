@@ -31,7 +31,7 @@ Explanation:
  * There are 3+2 versions of chart parsing algorithms in this
    directory: chart, chartill, chartpure, chart-th, chartill-th
 
-   <b>- chart version:
+   <b>- chart version:</b>
 	      This program parses a sentence under a grammar given in
         'gram/gram'. There is two transverse tables to convert between
         EDR version's categories and PENNTREE version's categories.
