@@ -1,6 +1,7 @@
 # Chart-parser
-<b>macOS usage</b>
-<b>Note: Copy malloc header to local</b>
+<b>MacOS usage: </b>
+
+<b>Copy malloc header to local</b>
 
 	$ cp /usr/include/malloc/malloc.h /usr/local/include/malloc.h
 
@@ -20,55 +21,55 @@ Explanation:
 
  * To compile this directory, type
 
-   % make		 # for three versions: chart,chartill,chartpure
-   % make chart          # for chart     version
-   % make chartill       # for chartill  version
-   % make chartpure      # for chartpure version
-   % make chart-th		 # for chart thai supported version
-   % make chartill-th	 # for chartill thai supported version
+   % make		             # for three versions: chart,chartill,chartpure <br>
+   % make chart          # for chart     version <br>
+   % make chartill       # for chartill  version <br>
+   % make chartpure      # for chartpure version <br>
+   % make chart-th		   # for chart Thai supported version <br>
+   % make chartill-th	   # for chartill Thai supported version <br>
 
  * There are 3+2 versions of chart parsing algorithms in this
    directory: chart, chartill, chartpure, chart-th, chartill-th
 
-   chart version:
-	This program parses a sentence under a grammar given in
+   <b>- chart version:
+	      This program parses a sentence under a grammar given in
         'gram/gram'. There is two transverse tables to convert between
         EDR version's categories and PENNTREE version's categories.
         The tables are denoted in 'src/trancat.c' and 'src/trancat.h'.
 
-   chartill  version:
+   <b>- chartill  version:</b>
         This program is an extension of chart version to parse
         ill-formed inputs under the algorithm given in [1]-[3]. 
 
-   chartpure version:
+   <b>- chartpure version:</b>
         This program is a pure chart parsing algorithm. There is no
         convert table anymore. It seems to be the most general version
         which you can use for parsing a sentence under a grammar.
 
-   chart-th version:
-	This program parses a sentence under a grammar given in
+   <b>- chart-th version:</b>
+	      This program parses a sentence under a grammar given in
         'gram/gram.th'.
         The tables are denoted in 'src/trancat-th.c' and 'src/trancat-th.h'.
 
-   chartill-th version:
-    This program is an extension of chart-th version to parse
+   <b>- chartill-th version:</b>
+        This program is an extension of chart-th version to parse
 
  * How to change a grammar and What is the form of input sentences ?
 
    == Chart and Chartill version ==
 
-   [Grammar]
+   <b>[Grammar]</b>
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram' with the one you want for chart and chartill
      version.
 
-   [Thai Grammar]
+   <b>[Thai Grammar]</b>
      You can change a grammar for parsing by replacing a grammar file
      located at 'gram/gram.th' with the one you want for chart and chartill
      version OR Makefile.
 
 
-   [Input sentences]
+   <b>[Input sentences]</b>
      In chart and chartill version, the sentence has to be in the form
      of 'word/category'. Be noted that, at the end of the sentences need to have 1 white space. 
      The following is an example:
@@ -79,11 +80,11 @@ Explanation:
 
    == Chartpure version ==
 
-   [Grammar]
+   <b>[Grammar]</b>
      For chartpure version, you have to replace a grammar file named
      'gram/grampure' with the suitable one.
 
-   [Input sentences]
+   <b>[Input sentences]</b>
      The sentence you want to parse should be in the form of 'a sequence
      of lexical tags' for chartpure version. An example is shown below.
 
@@ -93,17 +94,17 @@ Explanation:
 
    Ex.)
 
-   % ./chart [outputfile DIR]  < demo_example/ex_sentences
+   % ./chart [outputfile DIR] < demo_example/ex_sentences
 
    % ./chartill 1 1 1 1 < demo_example/ex_sentences
 
    % ./chartpure 1 < demo_example/ex_sentences1
 
-   % ./chart-th <outputfile DIR> < demo_example/ex_sentences
+   % ./chart-th [outputfile DIR] < demo_example/ex_sentences
 
    % ./chartill 1 1 1 1 < demo_example/ex_sentences
 
-   Note:  [outputfile DIR] in chart could be blank for displaying in STDOUT
+   Note:  [outputfile DIR] in chart could be blank for displaying in STDOUT <br>
    		  ./chartill [outputfile DIR] [no.err] [wlimit] [info]
 
 [Reference]
