@@ -19,6 +19,10 @@ any inconvenience is occurred by these programs.
 --
 <b>Explanation:</b>
 
+ * To clean dependency object, type
+
+   % make clean
+
  * To compile this directory, type
 
    % make		                 # for three+two versions: chart,chartill,chartpure,chart-th,chartill-th <br>
