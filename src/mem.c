@@ -73,13 +73,15 @@ EListptr  *tmpelistptr;
 {
     anumelist++;
     if( freeelist != &tail ){
-	*tmpelistptr = freeelist;
-	freeelist = freeelist->next;
-    }else{
-	if( NULL == ( *tmpelistptr = (EListptr)malloc(sizeof(struct EList)) )){
-	    printf("No enough memory\n");
-	    exit(0);
-	}}
+	   *tmpelistptr = freeelist;
+	   freeelist = freeelist->next;
+    }
+    else{
+        if( NULL == ( *tmpelistptr = (EListptr)malloc(sizeof(struct EList)) )){
+	       printf("No enough memory\n");
+	       exit(0);
+        }
+    }
 }
 
 allocedge(tmpeptr)
@@ -87,13 +89,15 @@ Edgeptr   *tmpeptr;
 {
     anumedge++;
     if( freeedge != &tailedge ){
-	*tmpeptr = freeedge;
-	freeedge = freeedge->next;
-    }else{
-	if( NULL == ( *tmpeptr = (Edgeptr)malloc(sizeof(struct Edge)) ) ){
-	    printf("No enough memory\n");
-	    exit(0);
-	}}
+	   *tmpeptr = freeedge;
+	   freeedge = freeedge->next;
+    }
+    else{
+        if( NULL == ( *tmpeptr = (Edgeptr)malloc(sizeof(struct Edge)) ) ){
+	       printf("No enough memory\n");
+	       exit(0);
+        }
+    }
 }
 
 allocltree(ltptr)
@@ -101,12 +105,14 @@ ListTreeptr   *ltptr;
 {
     anumltree++;
     if( freeltree != &tailtree ){
-	*ltptr = freeltree;
-	freeltree = freeltree->next;
-    }else{
-	if( NULL == (*ltptr = (ListTreeptr)malloc(sizeof(struct ListTree)))){
-	    printf("No enough memory\n");
-	    exit(0);
-	}}
+	   *ltptr = freeltree;
+	   freeltree = freeltree->next;
+    }
+    else{
+	   if( NULL == (*ltptr = (ListTreeptr)malloc(sizeof(struct ListTree)))){
+	       printf("No enough memory\n");
+	       exit(0);
+	   }
+    }
 }
 

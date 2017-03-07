@@ -6,8 +6,8 @@
 
 #define FNameLen	 128	/* The Maximum length of FileName */
 #define BufSize		 1024	/* The Maximum length of Buffer   */
-#define CatLen  	 128    /* The limited length of category names */  /* Increased 16 --> 64 --> 128*/
-#define WordLen  	 96    /* The limited length of words */			/* Increased 24 --> 96 */
+#define CatLen  	 512    /* The limited length of category names */  /* Increased 16 --> 64 --> 128 --> 512*/
+#define WordLen  	 512    /* The limited length of words */			/* Increased 24 --> 96  --> 512*/
 #define SentLen	  	 128	/* The Maximum length of Sentence */
 #define MaxCat		 256	/* The Maximum Category's Number  */
 #define MaxGram		 2048	/* The Maximum Category's Number  */
@@ -16,6 +16,7 @@
 
 /* For Memory Management */
 
-#define MemELimit   100000	/* The limit of Memory of Edges     */
-#define MemLLimit   100000	/* The limit of Memory of EdgeLists */
-#define MemTLimit   100000	/* The limit of Memory of ListTree  */
+#define MemELimit   10000000	/* The limit of Memory of Edges     */ // +00
+#define MemLLimit   10000000	/* The limit of Memory of EdgeLists */ // +00
+#define MemTLimit   10000000	/* The limit of Memory of ListTree  */ // +00
+

@@ -1,0 +1,320 @@
+1: กระทรวงวิทยาศาสตร์เทคโนโลยีและการพลังงาน/NNP โดย/IN มติ/NN ของ/IN คณะรัฐมนตรี/NN ได้/MD จัดตั้ง/VB ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ/NNP ขึ้น/RP เพื่อ/IN พัฒนา/VB เทคโนโลยีอิเล็กทรอนิกส์/NN ใน/IN ประเทศ/NN และ/CC เทคโนโลยีด้านคอมพิวเตอร์/NN ทั้งซอฟต์แวร์/JJ และ/CC ฮาร์ดแวร์/JJ 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 IN 0/0  no.parses:1
+i4 1 2 PP a0/i3/0/0  no.parses:1
+i5 2 3 NN 0/0  no.parses:1
+i6 1 3 PP a10/i5/0/0  no.parses:1
+i7 2 3 NP a0/i5/0/0  no.parses:1
+i8 1 3 S a7/i7/0/0  no.parses:1
+i9 3 4 IN 0/0  no.parses:1
+i10 3 4 PP a0/i9/0/0  no.parses:1
+i11 4 5 NN 0/0  no.parses:1
+i12 3 5 PP a34/i11/0/0  no.parses:1
+i13 0 5 NP a29/i11/0/0  no.parses:1
+i14 4 5 NP a0/i11/0/0  no.parses:1
+i15 3 5 S a31/i14/0/0  no.parses:1
+i16 5 6 MD 0/0  no.parses:1
+i17 6 7 VB 0/0  no.parses:1
+i18 5 7 VP a53/i17/0/0  no.parses:1
+i19 4 7 S a46/i18/0/0  no.parses:1
+i20 3 7 S a45/i18/0/0  no.parses:1
+i21 2 7 S a37/i18/0/0  no.parses:1
+i22 0 7 S a42/i18/0/0  no.parses:1
+i23 7 8 NNP 0/0  no.parses:1
+i24 7 8 NP a0/i23/0/0  no.parses:1
+i25 5 8 S a67/i24/0/0  no.parses:1
+i26 8 9 RP 0/0  no.parses:1
+i27 5 9 VP a81/i26/0/0  no.parses:1
+i28 4 9 S a46/i27/0/0  no.parses:1
+i29 3 9 S a45/i27/0/0  no.parses:1
+i30 2 9 S a37/i27/0/0  no.parses:1
+i31 0 9 S a42/i27/0/0  no.parses:1
+i32 9 10 IN 0/0  no.parses:1
+i33 9 10 PP a0/i32/0/0  no.parses:1
+i34 4 10 S a86/i33/0/0  no.parses:1
+i35 0 10 S a87/i33/0/0  no.parses:1
+i36 10 11 VB 0/0  no.parses:1
+i37 11 12 NN 0/0  no.parses:1
+i38 11 12 NP a0/i37/0/0  no.parses:1
+i39 12 13 IN 0/0  no.parses:1
+i40 12 13 PP a0/i39/0/0  no.parses:1
+i41 13 14 NN 0/0  no.parses:1
+i42 12 14 PP a114/i41/0/0  no.parses:1
+i43 13 14 NP a0/i41/0/0  no.parses:1
+i44 12 14 S a111/i43/0/0  no.parses:1
+i45 14 15 CC 0/0  no.parses:1
+i46 15 16 NN 0/0  no.parses:1
+i47 15 16 NP a0/i46/0/0  no.parses:1
+i48 16 17 JJ 0/0  no.parses:1
+i49 17 18 CC 0/0  no.parses:1
+i50 18 19 JJ 0/0  no.parses:1
+niedge: 50
+anumedge  = 188 : fnumedge  = 0
+anumelist = 376 : fnumelist = 188
+anumltree = 169 : fnumltree = 0
+minlength = 19, maxlength = 19
+_____________________
+
+2: ใน/IN ปลายปี/JJ 2559/NNP กระทรวงวิทยาศาสตร์เทคโนโลยีและการพลังงาน/NNP โดย/IN มติ/NN ของ/IN คณะรัฐมนตรี/NN ได้/MD จัดตั้ง/VB ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ/NNP ขึ้น/RP 
+
+i1 0 1 IN 0/0  no.parses:1
+i2 0 1 PP a0/i1/0/0  no.parses:1
+i3 1 2 JJ 0/0  no.parses:1
+i4 2 3 NNP 0/0  no.parses:1
+i5 2 3 NP a0/i4/0/0  no.parses:1
+i6 3 4 NNP 0/0  no.parses:1
+i7 3 4 NP a0/i6/0/0  no.parses:1
+i8 4 5 IN 0/0  no.parses:1
+i9 4 5 PP a0/i8/0/0  no.parses:1
+i10 5 6 NN 0/0  no.parses:1
+i11 4 6 PP a20/i10/0/0  no.parses:1
+i12 5 6 NP a0/i10/0/0  no.parses:1
+i13 4 6 S a17/i12/0/0  no.parses:1
+i14 6 7 IN 0/0  no.parses:1
+i15 6 7 PP a0/i14/0/0  no.parses:1
+i16 7 8 NN 0/0  no.parses:1
+i17 6 8 PP a44/i16/0/0  no.parses:1
+i18 3 8 NP a39/i16/0/0  no.parses:1
+i19 7 8 NP a0/i16/0/0  no.parses:1
+i20 6 8 S a41/i19/0/0  no.parses:1
+i21 8 9 MD 0/0  no.parses:1
+i22 9 10 VB 0/0  no.parses:1
+i23 8 10 VP a63/i22/0/0  no.parses:1
+i24 7 10 S a56/i23/0/0  no.parses:1
+i25 6 10 S a55/i23/0/0  no.parses:1
+i26 5 10 S a47/i23/0/0  no.parses:1
+i27 3 10 S a52/i23/0/0  no.parses:1
+i28 10 11 NNP 0/0  no.parses:1
+i29 10 11 NP a0/i28/0/0  no.parses:1
+i30 8 11 S a77/i29/0/0  no.parses:1
+i31 11 12 RP 0/0  no.parses:1
+i32 8 12 VP a91/i31/0/0  no.parses:1
+i33 7 12 S a56/i32/0/0  no.parses:1
+i34 6 12 S a55/i32/0/0  no.parses:1
+i35 5 12 S a47/i32/0/0  no.parses:1
+i36 3 12 S a52/i32/0/0  no.parses:1
+niedge: 36
+anumedge  = 134 : fnumedge  = 0
+anumelist = 268 : fnumelist = 134
+anumltree = 122 : fnumltree = 0
+minlength = 12, maxlength = 19
+_____________________
+
+3: ใน/IN ปลายปี/JJ 2559/NNP กระทรวงวิทยาศาสตร์เทคโนโลยีและการพลังงาน/NNP โดย/IN มติ/NN ของ/IN คณะรัฐมนตรี/NN ได้/MD จัดตั้ง/VB ศูนย์เทคโนโลยีอิเล็กทรอนิกส์และคอมพิวเตอร์แห่งชาติ/NNP ขึ้น/RP เพื่อ/IN พัฒนา/VB เทคโนโลยีอิเล็กทรอนิกส์/NN ใน/IN ประเทศ/NN และ/CC เทคโนโลยีด้านคอมพิวเตอร์/NN ทั้งซอฟต์แวร์/JJ และ/CC ฮาร์ดแวร์/JJ 
+
+i1 0 1 IN 0/0  no.parses:1
+i2 0 1 PP a0/i1/0/0  no.parses:1
+i3 1 2 JJ 0/0  no.parses:1
+i4 2 3 NNP 0/0  no.parses:1
+i5 2 3 NP a0/i4/0/0  no.parses:1
+i6 3 4 NNP 0/0  no.parses:1
+i7 3 4 NP a0/i6/0/0  no.parses:1
+i8 4 5 IN 0/0  no.parses:1
+i9 4 5 PP a0/i8/0/0  no.parses:1
+i10 5 6 NN 0/0  no.parses:1
+i11 4 6 PP a20/i10/0/0  no.parses:1
+i12 5 6 NP a0/i10/0/0  no.parses:1
+i13 4 6 S a17/i12/0/0  no.parses:1
+i14 6 7 IN 0/0  no.parses:1
+i15 6 7 PP a0/i14/0/0  no.parses:1
+i16 7 8 NN 0/0  no.parses:1
+i17 6 8 PP a44/i16/0/0  no.parses:1
+i18 3 8 NP a39/i16/0/0  no.parses:1
+i19 7 8 NP a0/i16/0/0  no.parses:1
+i20 6 8 S a41/i19/0/0  no.parses:1
+i21 8 9 MD 0/0  no.parses:1
+i22 9 10 VB 0/0  no.parses:1
+i23 8 10 VP a63/i22/0/0  no.parses:1
+i24 7 10 S a56/i23/0/0  no.parses:1
+i25 6 10 S a55/i23/0/0  no.parses:1
+i26 5 10 S a47/i23/0/0  no.parses:1
+i27 3 10 S a52/i23/0/0  no.parses:1
+i28 10 11 NNP 0/0  no.parses:1
+i29 10 11 NP a0/i28/0/0  no.parses:1
+i30 8 11 S a77/i29/0/0  no.parses:1
+i31 11 12 RP 0/0  no.parses:1
+i32 8 12 VP a91/i31/0/0  no.parses:1
+i33 7 12 S a56/i32/0/0  no.parses:1
+i34 6 12 S a55/i32/0/0  no.parses:1
+i35 5 12 S a47/i32/0/0  no.parses:1
+i36 3 12 S a52/i32/0/0  no.parses:1
+i37 12 13 IN 0/0  no.parses:1
+i38 12 13 PP a0/i37/0/0  no.parses:1
+i39 7 13 S a96/i38/0/0  no.parses:1
+i40 3 13 S a97/i38/0/0  no.parses:1
+i41 13 14 VB 0/0  no.parses:1
+i42 14 15 NN 0/0  no.parses:1
+i43 14 15 NP a0/i42/0/0  no.parses:1
+i44 15 16 IN 0/0  no.parses:1
+i45 15 16 PP a0/i44/0/0  no.parses:1
+i46 16 17 NN 0/0  no.parses:1
+i47 15 17 PP a124/i46/0/0  no.parses:1
+i48 16 17 NP a0/i46/0/0  no.parses:1
+i49 15 17 S a121/i48/0/0  no.parses:1
+i50 17 18 CC 0/0  no.parses:1
+i51 18 19 NN 0/0  no.parses:1
+i52 18 19 NP a0/i51/0/0  no.parses:1
+i53 19 20 JJ 0/0  no.parses:1
+i54 20 21 CC 0/0  no.parses:1
+i55 21 22 JJ 0/0  no.parses:1
+niedge: 55
+anumedge  = 203 : fnumedge  = 0
+anumelist = 406 : fnumelist = 203
+anumltree = 181 : fnumltree = 0
+minlength = 12, maxlength = 22
+_____________________
+
+4: ศูนย์/NNP ได้/MD ดำเนินงาน/VB มา/IN 1ปี/NN แล้ว/MD 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a5/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 3 4 IN 0/0  no.parses:1
+i8 3 4 PP a0/i7/0/0  no.parses:1
+i9 0 4 S a17/i8/0/0  no.parses:1
+i10 4 5 NN 0/0  no.parses:1
+i11 3 5 PP a35/i10/0/0  no.parses:1
+i12 0 5 S a17/i11/0/0  no.parses:1
+i13 4 5 NP a0/i10/0/0  no.parses:1
+i14 3 5 S a32/i13/0/0  no.parses:1
+i15 5 6 MD 0/0  no.parses:1
+niedge: 15
+anumedge  = 76 : fnumedge  = 0
+anumelist = 152 : fnumelist = 76
+anumltree = 70 : fnumltree = 0
+minlength = 6, maxlength = 22
+_____________________
+
+5: มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ 
+
+i1 0 1 VB 0/0  no.parses:1
+i2 1 2 NN 0/0  no.parses:1
+i3 1 2 NP a0/i2/0/0  no.parses:1
+i4 2 3 JJ 0/0  no.parses:1
+i5 0 3 VP a3/i4/0/0  no.parses:1
+niedge: 5
+anumedge  = 19 : fnumedge  = 0
+anumelist = 38 : fnumelist = 19
+anumltree = 16 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+
+6: เรา/NGAP มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ 
+
+i1 0 1 NGAP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 VB 0/0  no.parses:1
+i4 2 3 NN 0/0  no.parses:1
+i5 2 3 NP a0/i4/0/0  no.parses:1
+i6 3 4 JJ 0/0  no.parses:1
+i7 1 4 VP a6/i6/0/0  no.parses:1
+i8 0 4 S a1/i7/0/0  no.parses:1
+niedge: 8
+anumedge  = 26 : fnumedge  = 0
+anumelist = 52 : fnumelist = 26
+anumltree = 22 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+
+7: มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ และ/CC สามารถนำไป/MD ใช้ประโยชน์/VB มีมูลค่าเพิ่ม/RB 
+
+i1 0 1 VB 0/0  no.parses:1
+i2 1 2 NN 0/0  no.parses:1
+i3 1 2 NP a0/i2/0/0  no.parses:1
+i4 2 3 JJ 0/0  no.parses:1
+i5 0 3 VP a3/i4/0/0  no.parses:1
+i6 3 4 CC 0/0  no.parses:1
+i7 4 5 MD 0/0  no.parses:1
+i8 5 6 VB 0/0  no.parses:1
+i9 4 6 VP a15/i8/0/0  no.parses:1
+i10 6 7 RB 0/0  no.parses:1
+niedge: 10
+anumedge  = 50 : fnumedge  = 0
+anumelist = 100 : fnumelist = 50
+anumltree = 43 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+
+8: เรา/NGAP มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ และ/CC สามารถนำไป/MD ใช้ประโยชน์/VB มีมูลค่าเพิ่ม/RB 
+
+i1 0 1 NGAP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 VB 0/0  no.parses:1
+i4 2 3 NN 0/0  no.parses:1
+i5 2 3 NP a0/i4/0/0  no.parses:1
+i6 3 4 JJ 0/0  no.parses:1
+i7 1 4 VP a6/i6/0/0  no.parses:1
+i8 0 4 S a1/i7/0/0  no.parses:1
+i9 4 5 CC 0/0  no.parses:1
+i10 5 6 MD 0/0  no.parses:1
+i11 6 7 VB 0/0  no.parses:1
+i12 5 7 VP a19/i11/0/0  no.parses:1
+i13 7 8 RB 0/0  no.parses:1
+niedge: 13
+anumedge  = 57 : fnumedge  = 0
+anumelist = 114 : fnumelist = 57
+anumltree = 49 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+
+9: มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ และ/CC สามารถนำไป/MD ใช้ประโยชน์/VB มีมูลค่าเพิ่ม/RB ส่งผล/VB ต่อ/IN การพัฒนาเศรษฐกิจ/NN โดยตรง/RB 
+
+i1 0 1 VB 0/0  no.parses:1
+i2 1 2 NN 0/0  no.parses:1
+i3 1 2 NP a0/i2/0/0  no.parses:1
+i4 2 3 JJ 0/0  no.parses:1
+i5 0 3 VP a3/i4/0/0  no.parses:1
+i6 3 4 CC 0/0  no.parses:1
+i7 4 5 MD 0/0  no.parses:1
+i8 5 6 VB 0/0  no.parses:1
+i9 4 6 VP a15/i8/0/0  no.parses:1
+i10 6 7 RB 0/0  no.parses:1
+i11 7 8 VB 0/0  no.parses:1
+i12 8 9 IN 0/0  no.parses:1
+i13 8 9 PP a0/i12/0/0  no.parses:1
+i14 9 10 NN 0/0  no.parses:1
+i15 8 10 PP a46/i14/0/0  no.parses:1
+i16 9 10 NP a0/i14/0/0  no.parses:1
+i17 8 10 S a43/i16/0/0  no.parses:1
+i18 10 11 RB 0/0  no.parses:1
+niedge: 18
+anumedge  = 78 : fnumedge  = 0
+anumelist = 156 : fnumelist = 78
+anumltree = 67 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+
+10: เรา/NGAP มี/VB ผลงาน/NN ที่เป็นรูปธรรม/JJ และ/CC สามารถนำไป/MD ใช้ประโยชน์/VB มีมูลค่าเพิ่ม/RB ส่งผล/VB ต่อ/IN การพัฒนาเศรษฐกิจ/NN โดยตรง/RB 
+i1 0 1 NGAP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 VB 0/0  no.parses:1
+i4 2 3 NN 0/0  no.parses:1
+i5 2 3 NP a0/i4/0/0  no.parses:1
+i6 3 4 JJ 0/0  no.parses:1
+i7 1 4 VP a6/i6/0/0  no.parses:1
+i8 0 4 S a1/i7/0/0  no.parses:1
+i9 4 5 CC 0/0  no.parses:1
+i10 5 6 MD 0/0  no.parses:1
+i11 6 7 VB 0/0  no.parses:1
+i12 5 7 VP a19/i11/0/0  no.parses:1
+i13 7 8 RB 0/0  no.parses:1
+i14 8 9 VB 0/0  no.parses:1
+i15 9 10 IN 0/0  no.parses:1
+i16 9 10 PP a0/i15/0/0  no.parses:1
+i17 10 11 NN 0/0  no.parses:1
+i18 9 11 PP a50/i17/0/0  no.parses:1
+i19 10 11 NP a0/i17/0/0  no.parses:1
+i20 9 11 S a47/i19/0/0  no.parses:1
+i21 11 12 RB 0/0  no.parses:1
+niedge: 21
+anumedge  = 85 : fnumedge  = 0
+anumelist = 170 : fnumelist = 85
+anumltree = 73 : fnumltree = 0
+minlength = 3, maxlength = 22
+_____________________
+

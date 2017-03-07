@@ -27,7 +27,7 @@ void trancat(incat,wd,wc)   /* Input CatofTagger and */
 char *incat,*wd;
 int *wc;
 {
-	printf("Enter to trancat(incat,wd,wc): %s, %s, %p\n", incat,wd,wc);
+	// printf("Enter to trancat(incat,wd,wc): %s, %s, %p\n", incat,wd,wc);
     int i=0, state=0;
     char tmpchar[CatLen], tmpchar2[CatLen];
 

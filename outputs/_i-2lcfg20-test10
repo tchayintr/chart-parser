@@ -1,0 +1,300 @@
+1: ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a3/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a16/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+niedge: 11
+anumedge  = 51 : fnumedge  = 0
+anumelist = 102 : fnumelist = 51
+anumltree = 47 : fnumltree = 0
+_____________________
+
+2: ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a3/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a16/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+i11 4 5 IN 0/0  no.parses:1
+i12 4 5 PP a0/i11/0/0  no.parses:1
+i13 5 6 NN 0/0  no.parses:1
+i14 6 7 IN 0/0  no.parses:1
+i15 6 7 PP a0/i14/0/0  no.parses:1
+i16 7 8 NN 0/0  no.parses:1
+i17 1 8 VP a57/i16/0/0  no.parses:1
+i18 0 8 S a1/i17/0/0  no.parses:1
+niedge: 19
+anumedge  = 87 : fnumedge  = 0
+anumelist = 174 : fnumelist = 87
+anumltree = 79 : fnumltree = 0
+_____________________
+
+3: ประเทศไทย/NNP ได้/MD มี/VB การปรับเปลี่ยนโครงสร้าง/NN ใน/IN การพัฒนาเศรษฐกิจ/NN ของ/IN ประเทศ/NN จาก/IN ประเทศเกษตรกรรม/NN ไปสู่/IN ประเทศอุตสาหกรรม/NN มากยิ่งขึ้น/RB 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a3/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a16/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+i11 4 5 IN 0/0  no.parses:1
+i12 4 5 PP a0/i11/0/0  no.parses:1
+i13 5 6 NN 0/0  no.parses:1
+i14 6 7 IN 0/0  no.parses:1
+i15 6 7 PP a0/i14/0/0  no.parses:1
+i16 7 8 NN 0/0  no.parses:1
+i17 1 8 VP a57/i16/0/0  no.parses:1
+i18 0 8 S a1/i17/0/0  no.parses:1
+i19 8 9 IN 0/0  no.parses:1
+i20 8 9 PP a0/i19/0/0  no.parses:1
+i21 9 10 NN 0/0  no.parses:1
+i22 10 11 IN 0/0  no.parses:1
+i23 10 11 PP a0/i22/0/0  no.parses:1
+i24 11 12 NN 0/0  no.parses:1
+i25 12 13 RB 0/0  no.parses:1
+niedge: 26
+anumedge  = 115 : fnumedge  = 0
+anumelist = 230 : fnumelist = 115
+anumltree = 102 : fnumltree = 0
+_____________________
+
+4: ใน/IN การดำเนินงาน/NN เพื่อให้/IN บรรลุ/VB วัตถุประสงค์/NN ดังกล่าว/JJ 
+
+i1 0 1 IN 0/0  no.parses:1
+i2 0 1 PP a0/i1/0/0  no.parses:1
+i3 1 2 NN 0/0  no.parses:1
+i4 2 3 IN 0/0  no.parses:1
+i5 2 3 PP a0/i4/0/0  no.parses:1
+i6 3 4 VB 0/0  no.parses:1
+i7 3 4 VP a0/i6/0/0  no.parses:1
+i8 4 5 NN 0/0  no.parses:1
+i9 5 6 JJ 0/0  no.parses:1
+i10 4 6 NP a23/i9/0/0  no.parses:1
+i11 3 6 S a15/i10/0/0  no.parses:1
+i12 3 6 VP a19/i9/0/0  no.parses:1
+i13 1 6 NP a22/i9/0/0  no.parses:1
+i14 0 6 S a1/i13/0/0  no.parses:1
+niedge: 15
+anumedge  = 52 : fnumedge  = 0
+anumelist = 104 : fnumelist = 52
+anumltree = 46 : fnumltree = 0
+_____________________
+
+5: จะต้อง/MD อาศัย/VB ปัจจัยพื้นฐาน/NN หลายประการ/JJ ใน/IN การเป็นตัวเร่ง/NN และ/CC เป็นฐาน/NN 
+
+i1 0 1 MD 0/0  no.parses:1
+i2 1 2 VB 0/0  no.parses:1
+i3 0 2 VP a1/i2/0/0  no.parses:1
+i4 1 2 VP a0/i2/0/0  no.parses:1
+i5 2 3 NN 0/0  no.parses:1
+i6 0 3 VP a14/i5/0/0  no.parses:1
+i7 3 4 JJ 0/0  no.parses:1
+i8 2 4 NP a34/i7/0/0  no.parses:1
+i9 1 4 S a21/i8/0/0  no.parses:1
+i10 0 4 S a11/i8/0/0  no.parses:1
+i11 1 4 VP a25/i7/0/0  no.parses:1
+i12 4 5 IN 0/0  no.parses:1
+i13 4 5 PP a0/i12/0/0  no.parses:1
+i14 5 6 NN 0/0  no.parses:1
+i15 0 6 VP a53/i14/0/0  no.parses:1
+i16 6 7 CC 0/0  no.parses:1
+i17 7 8 NN 0/0  no.parses:1
+i18 2 8 NP a70/i17/0/0  no.parses:1
+i19 1 8 S a21/i18/0/0  no.parses:1
+i20 0 8 S a11/i18/0/0  no.parses:1
+niedge: 21
+anumedge  = 101 : fnumedge  = 0
+anumelist = 202 : fnumelist = 101
+anumltree = 93 : fnumltree = 0
+_____________________
+
+6: เรา/NGAP จะต้อง/MD อาศัย/VB ปัจจัยพื้นฐาน/NN หลายประการ/JJ ใน/IN การเป็นตัวเร่ง/NN และ/CC เป็นฐาน/NN 
+
+i1 0 1 NGAP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a2/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a15/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+i11 4 5 JJ 0/0  no.parses:1
+i12 3 5 NP a35/i11/0/0  no.parses:1
+i13 2 5 S a22/i12/0/0  no.parses:1
+i14 1 5 S a12/i12/0/0  no.parses:1
+i15 2 5 VP a26/i11/0/0  no.parses:1
+i16 5 6 IN 0/0  no.parses:1
+i17 5 6 PP a0/i16/0/0  no.parses:1
+i18 6 7 NN 0/0  no.parses:1
+i19 1 7 VP a54/i18/0/0  no.parses:1
+i20 0 7 S a1/i19/0/0  no.parses:1
+i21 7 8 CC 0/0  no.parses:1
+i22 8 9 NN 0/0  no.parses:1
+i23 3 9 NP a71/i22/0/0  no.parses:1
+i24 2 9 S a22/i23/0/0  no.parses:1
+i25 1 9 S a12/i23/0/0  no.parses:1
+niedge: 26
+anumedge  = 107 : fnumedge  = 0
+anumelist = 214 : fnumelist = 107
+anumltree = 98 : fnumltree = 0
+_____________________
+
+7: จะต้อง/MD อาศัย/VB ปัจจัยพื้นฐาน/NN หลายประการ/JJ ใน/IN การเป็นตัวเร่ง/NN และ/CC เป็นฐาน/NN เช่น/E การพัฒนาเทคโนโลยี/NN ที่/MD ใช้/VB ใน/IN การผลิต/NN ของ/IN ภาคอุตสาหกรรม/NN 
+
+i1 0 1 MD 0/0  no.parses:1
+i2 1 2 VB 0/0  no.parses:1
+i3 0 2 VP a1/i2/0/0  no.parses:1
+i4 1 2 VP a0/i2/0/0  no.parses:1
+i5 2 3 NN 0/0  no.parses:1
+i6 0 3 VP a14/i5/0/0  no.parses:1
+i7 3 4 JJ 0/0  no.parses:1
+i8 2 4 NP a34/i7/0/0  no.parses:1
+i9 1 4 S a21/i8/0/0  no.parses:1
+i10 0 4 S a11/i8/0/0  no.parses:1
+i11 1 4 VP a25/i7/0/0  no.parses:1
+i12 4 5 IN 0/0  no.parses:1
+i13 4 5 PP a0/i12/0/0  no.parses:1
+i14 5 6 NN 0/0  no.parses:1
+i15 0 6 VP a53/i14/0/0  no.parses:1
+i16 6 7 CC 0/0  no.parses:1
+i17 7 8 NN 0/0  no.parses:1
+i18 2 8 NP a70/i17/0/0  no.parses:1
+i19 1 8 S a21/i18/0/0  no.parses:1
+i20 0 8 S a11/i18/0/0  no.parses:1
+i21 8 9 E 0/0  no.parses:1
+i22 9 10 NN 0/0  no.parses:1
+i23 10 11 MD 0/0  no.parses:1
+i24 11 12 VB 0/0  no.parses:1
+i25 10 12 VP a91/i24/0/0  no.parses:1
+i26 11 12 VP a0/i24/0/0  no.parses:1
+i27 12 13 IN 0/0  no.parses:1
+i28 12 13 PP a0/i27/0/0  no.parses:1
+i29 13 14 NN 0/0  no.parses:1
+i30 14 15 IN 0/0  no.parses:1
+i31 14 15 PP a0/i30/0/0  no.parses:1
+i32 15 16 NN 0/0  no.parses:1
+i33 2 16 NP a130/i32/0/0  no.parses:1
+i34 1 16 S a21/i33/0/0  no.parses:1
+i35 0 16 S a11/i33/0/0  no.parses:1
+niedge: 36
+anumedge  = 175 : fnumedge  = 0
+anumelist = 350 : fnumelist = 175
+anumltree = 159 : fnumltree = 0
+_____________________
+
+8: เรา/NGAP จะต้อง/MD อาศัย/VB ปัจจัยพื้นฐาน/NN หลายประการ/JJ ใน/IN การเป็นตัวเร่ง/NN และ/CC เป็นฐาน/NN เช่น/E การพัฒนาเทคโนโลยี/NN ที่/MD ใช้/VB ใน/IN การผลิต/NN ของ/IN ภาคอุตสาหกรรม/NN 
+
+i1 0 1 NGAP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a2/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a15/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+i11 4 5 JJ 0/0  no.parses:1
+i12 3 5 NP a35/i11/0/0  no.parses:1
+i13 2 5 S a22/i12/0/0  no.parses:1
+i14 1 5 S a12/i12/0/0  no.parses:1
+i15 2 5 VP a26/i11/0/0  no.parses:1
+i16 5 6 IN 0/0  no.parses:1
+i17 5 6 PP a0/i16/0/0  no.parses:1
+i18 6 7 NN 0/0  no.parses:1
+i19 1 7 VP a54/i18/0/0  no.parses:1
+i20 0 7 S a1/i19/0/0  no.parses:1
+i21 7 8 CC 0/0  no.parses:1
+i22 8 9 NN 0/0  no.parses:1
+i23 3 9 NP a71/i22/0/0  no.parses:1
+i24 2 9 S a22/i23/0/0  no.parses:1
+i25 1 9 S a12/i23/0/0  no.parses:1
+i26 9 10 E 0/0  no.parses:1
+i27 10 11 NN 0/0  no.parses:1
+i28 11 12 MD 0/0  no.parses:1
+i29 12 13 VB 0/0  no.parses:1
+i30 11 13 VP a92/i29/0/0  no.parses:1
+i31 12 13 VP a0/i29/0/0  no.parses:1
+i32 13 14 IN 0/0  no.parses:1
+i33 13 14 PP a0/i32/0/0  no.parses:1
+i34 14 15 NN 0/0  no.parses:1
+i35 15 16 IN 0/0  no.parses:1
+i36 15 16 PP a0/i35/0/0  no.parses:1
+i37 16 17 NN 0/0  no.parses:1
+i38 3 17 NP a131/i37/0/0  no.parses:1
+i39 2 17 S a22/i38/0/0  no.parses:1
+i40 1 17 S a12/i38/0/0  no.parses:1
+niedge: 41
+anumedge  = 181 : fnumedge  = 0
+anumelist = 362 : fnumelist = 181
+anumltree = 164 : fnumltree = 0
+_____________________
+
+9: กระทรวงวิทยาศาสตร์เทคโนโลยีและการพลังงาน/NNP จึงได้/MD ให้/VB ความสำคัญ/NN เป็นลำดับสูง/JJ ใน/IN การพัฒนาอุตสาหกรรมอิเล็กทรอนิกส์และคอมพิวเตอร์/NN 
+
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 MD 0/0  no.parses:1
+i4 2 3 VB 0/0  no.parses:1
+i5 1 3 VP a3/i4/0/0  no.parses:1
+i6 0 3 S a1/i5/0/0  no.parses:1
+i7 2 3 VP a0/i4/0/0  no.parses:1
+i8 3 4 NN 0/0  no.parses:1
+i9 1 4 VP a16/i8/0/0  no.parses:1
+i10 0 4 S a1/i9/0/0  no.parses:1
+i11 4 5 JJ 0/0  no.parses:1
+i12 3 5 NP a36/i11/0/0  no.parses:1
+i13 2 5 S a23/i12/0/0  no.parses:1
+i14 1 5 S a13/i12/0/0  no.parses:1
+i15 2 5 VP a27/i11/0/0  no.parses:1
+i16 5 6 IN 0/0  no.parses:1
+i17 5 6 PP a0/i16/0/0  no.parses:1
+i18 6 7 NN 0/0  no.parses:1
+i19 1 7 VP a55/i18/0/0  no.parses:1
+i20 0 7 S a1/i19/0/0  no.parses:1
+niedge: 21
+anumedge  = 91 : fnumedge  = 0
+anumelist = 182 : fnumelist = 91
+anumltree = 84 : fnumltree = 0
+_____________________
+
+10: กระทรวงวิทยาศาสตร์เทคโนโลยีและการพลังงาน/NNP โดย/IN มติ/NN ของ/IN คณะรัฐมนตรี/NN ได้/MD จัดตั้ง/VB 
+i1 0 1 NNP 0/0  no.parses:1
+i2 0 1 NP a0/i1/0/0  no.parses:1
+i3 1 2 IN 0/0  no.parses:1
+i4 1 2 PP a0/i3/0/0  no.parses:1
+i5 2 3 NN 0/0  no.parses:1
+i6 3 4 IN 0/0  no.parses:1
+i7 3 4 PP a0/i6/0/0  no.parses:1
+i8 4 5 NN 0/0  no.parses:1
+i9 0 5 NP a15/i8/0/0  no.parses:1
+i10 5 6 MD 0/0  no.parses:1
+i11 6 7 VB 0/0  no.parses:1
+i12 5 7 VP a26/i11/0/0  no.parses:1
+i13 0 7 S a19/i12/0/0  no.parses:1
+i14 6 7 VP a0/i11/0/0  no.parses:1
+niedge: 15
+anumedge  = 63 : fnumedge  = 0
+anumelist = 126 : fnumelist = 63
+anumltree = 56 : fnumltree = 0
+_____________________
+

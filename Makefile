@@ -101,7 +101,7 @@ OBJS2 = $(SRCDIR)/chartill.o $(SRCDIR)/io.o $(SRCDIR)/memill.o \
 OBJS3 = $(SRCDIR)/chartpure.o $(SRCDIR)/io.o $(SRCDIR)/mem.o \
         $(SRCDIR)/trancatpure.o
 # Additional for Thai language
-OBJS4 = $(SRCDIR)/chart-th.o $(SRCDIR)/io.o $(SRCDIR)/mem.o $(SRCDIR)/trancat-th.o
+OBJS4 = $(SRCDIR)/chart-th.o $(SRCDIR)/io.o $(SRCDIR)/mem.o $(SRCDIR)/trancat-th.o $(SRCDIR)/queue-th.o
 OBJS5 = $(SRCDIR)/chartill-th.o $(SRCDIR)/io.o $(SRCDIR)/memill.o \
 	$(SRCDIR)/trancat-th.o
 
@@ -178,6 +178,9 @@ $(SRCDIR)/trancat.o: $(SRCDIR)/trancat.c $(SRCDIR)/$(GRAMHEAD) $(SRCDIR)/def.h
 # Thai
 $(SRCDIR)/trancat-th.o: $(SRCDIR)/trancat-th.c $(SRCDIR)/$(GRAMHEADTH) $(SRCDIR)/def.h 
 	$(CC) -c -o $(SRCDIR)/trancat-th.o $(CFLAGS) $(SRCDIR)/trancat-th.c
+
+$(SRCDIR)/queue-th.o: $(SRCDIR)/queue-th.c $(SRCDIR)/def.h
+	$(CC) -c -o $(SRCDIR)/queue-th.o $(CFLAGS) $(SRCDIR)/queue-th.c
 
 $(SRCDIR)/trancatpure.o: $(SRCDIR)/trancatpure.c $(SRCDIR)/$(GRAMPUREHEAD) \
 	$(SRCDIR)/def.h 

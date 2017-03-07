@@ -23,6 +23,7 @@ struct Edge{
   char word[WordLen];	   /* For Type 0 */
   struct ListTree *parse;  /* Parse Information */
   struct Edge *next;	   /* Next Edge */
+  // char ptree[WordLen]; /* Add parse tree */
 };
  
 struct EList {
@@ -34,4 +35,3 @@ struct EList {
 typedef struct ListTree *ListTreeptr;
 typedef struct Edge *Edgeptr;
 typedef struct EList *EListptr;
-
