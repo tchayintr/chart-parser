@@ -1,5 +1,5 @@
 # Chart-parser
-<b>MacOS USAGE: </b>
+<b>MacOS (+Linux) USAGE: </b>
 
 <b>Copy malloc header to local</b>
 
